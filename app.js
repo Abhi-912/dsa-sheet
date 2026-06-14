@@ -1,5 +1,24 @@
 // DSA Mastery Application Controller
 document.addEventListener("DOMContentLoaded", () => {
+    // 0. THEME MANAGEMENT
+    function initTheme() {
+        const savedTheme = localStorage.getItem("dsa_theme") || "light";
+        if (savedTheme === "dark") {
+            document.body.classList.add("dark-theme");
+        } else {
+            document.body.classList.remove("dark-theme");
+        }
+    }
+    initTheme();
+
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+            const isDark = document.body.classList.toggle("dark-theme");
+            localStorage.setItem("dsa_theme", isDark ? "dark" : "light");
+        });
+    }
+
     // 1. STATE MANAGEMENT
     let userProgress = {}; // Key: questionId, Value: { status, notes, lastSolved, confidence, reviewCount, nextReview }
     let activePattern = "all";
