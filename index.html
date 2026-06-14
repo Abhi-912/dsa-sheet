@@ -20,7 +20,7 @@
                     <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                     </svg>
-                    <h1>DSA Mastery</h1>
+                    <h1>Abhishek DSA Sheet</h1>
                 </div>
                 <button class="mobile-close-btn" id="mobileCloseBtn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -117,41 +117,7 @@
                     </div>
                 </div>
 
-                <!-- Due Reviews Today -->
-                <div class="stat-card click-filter-card" id="cardDueToday" title="Click to view questions due for review">
-                    <div class="stat-card-body">
-                        <div class="stat-icon-wrapper due-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <div class="stat-info">
-                            <span class="stat-label">Due Reviews</span>
-                            <span class="stat-number" id="dueCount">0</span>
-                        </div>
-                    </div>
-                    <div class="stat-card-footer">
-                        <span>Click to filter due reviews</span>
-                    </div>
-                </div>
 
-                <!-- Confidence Average -->
-                <div class="stat-card">
-                    <div class="stat-card-body">
-                        <div class="stat-icon-wrapper rating-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499c.198-.39.757-.39.955 0l2.422 4.908 5.405.784c.43.063.602.583.29.897l-3.91 3.811.924 5.38a.562.562 0 01-.815.592L12 18.257l-4.823 2.534a.562.562 0 01-.815-.592l.924-5.38-3.91-3.811a.562.562 0 01.29-.897l5.405-.784 2.422-4.908z" />
-                            </svg>
-                        </div>
-                        <div class="stat-info">
-                            <span class="stat-label">Avg Confidence</span>
-                            <span class="stat-number" id="avgConfidence">0.0</span>
-                        </div>
-                    </div>
-                    <div class="stat-card-footer">
-                        <span>Based on solved tasks</span>
-                    </div>
-                </div>
 
                 <!-- Difficulty Ratios -->
                 <div class="stat-card difficulty-summary-card">
@@ -215,17 +181,7 @@
                         </select>
                     </div>
                     
-                    <!-- Sorting Selector -->
-                    <div class="custom-select-wrapper">
-                        <select id="sortBySelector">
-                            <option value="id-asc">Sort by: Number (#)</option>
-                            <option value="difficulty-asc">Sort by: Difficulty</option>
-                            <option value="confidence-asc">Sort by: Confidence (Low-High)</option>
-                            <option value="confidence-desc">Sort by: Confidence (High-Low)</option>
-                            <option value="nextreview-asc">Sort by: Review Due Date</option>
-                            <option value="week-asc">Sort by: Week</option>
-                        </select>
-                    </div>
+
                 </div>
 
                 <!-- Active Filter Badges Info -->
@@ -253,7 +209,7 @@
                                 <th class="col-question">Question</th>
                                 <th class="col-difficulty">Difficulty</th>
                                 <th class="col-status">Status</th>
-                                <th class="col-repetition">Spaced Repetition</th>
+                                <th class="col-repetition">Solved Date</th>
                                 <th class="col-actions">Actions</th>
                             </tr>
                         </thead>

@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
     const clearSearchBtn = document.getElementById("clearSearchBtn");
     const difficultyFilter = document.getElementById("difficultyFilter");
-    const sortBySelector = document.getElementById("sortBySelector");
     const activeFiltersContainer = document.getElementById("activeFiltersContainer");
     const activeFiltersRow = document.getElementById("activeFiltersRow");
     const btnResetFilters = document.getElementById("btnResetFilters");
@@ -53,14 +52,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const tabTodo = document.getElementById("tab-status-todo");
     const tabInProgress = document.getElementById("tab-status-inprogress");
     const tabDone = document.getElementById("tab-status-done");
-    const cardDueToday = document.getElementById("cardDueToday");
 
     // Stats Elements
     const masteryPercent = document.getElementById("masteryPercent");
     const masteryProgressFill = document.getElementById("masteryProgressFill");
     const completionRatio = document.getElementById("completionRatio");
-    const dueCount = document.getElementById("dueCount");
-    const avgConfidence = document.getElementById("avgConfidence");
     const streakCount = document.getElementById("streakCount");
     const easyRatio = document.getElementById("easyRatio");
     const mediumRatio = document.getElementById("mediumRatio");
@@ -266,16 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
         masteryPercent.textContent = `${progressPercent}%`;
         masteryProgressFill.style.width = `${progressPercent}%`;
         completionRatio.textContent = `${completedCount} / ${totalCount} Solved`;
-        dueCount.textContent = dueTodayCount;
-        avgConfidence.textContent = avgConf;
         streakCount.textContent = `${currentStreak} Day${currentStreak === 1 ? '' : 's'} Streak`;
-
-        // Style due card if there are due reviews
-        if (dueTodayCount > 0) {
-            cardDueToday.classList.add("due-active");
-        } else {
-            cardDueToday.classList.remove("due-active");
-        }
 
         // Difficulty Bars
         easyRatio.textContent = `${diffStats.Easy.solved}/${diffStats.Easy.total}`;
@@ -463,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             // 1. MAIN ROW
             const tr = document.createElement("tr");
-            tr.className = `question-row-master ${isExpanded ? 'expanded' : ''} ${prog.status === 'Done' ? 'completed-row' : ''}`;
+            tr.className = `question-row-master ${isExpanded ? 'expanded' : ''} ${prog.status === 'Done' ? 'completed-row' : ''} ${prog.status === 'In Progress' ? 'inprogress-row' : ''}`;
             tr.id = `q-row-${q.id}`;
             
             // Col ID
@@ -554,51 +541,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const repBox = document.createElement("div");
             repBox.className = "repetition-data-box";
             
-            const dueBadge = document.createElement("span");
-            dueBadge.className = `due-state-badge ${dueState}`;
-            
-            if (dueState === "due") {
-                dueBadge.innerHTML = `
-                    <svg viewBox="0 0 20 20" fill="currentColor" width="12" height="12" style="margin-right: 2px;">
-                        <path fill-rule="evenodd" d="M8.485 3.66a1.72 1.72 0 012.985 0l6.078 10.457A1.72 1.72 0 0116.038 17H3.962a1.72 1.72 0 01-1.493-2.583L8.485 3.66zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                    </svg> Review Due`;
-            } else if (dueState === "upcoming") {
-                dueBadge.innerHTML = `
-                    <svg viewBox="0 0 20 20" fill="currentColor" width="12" height="12" style="margin-right: 2px;">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg> Active`;
-            } else {
-                dueBadge.textContent = "Not Tracked";
-            }
-            repBox.appendChild(dueBadge);
-            
             const datesDiv = document.createElement("div");
             datesDiv.className = "review-info-dates";
             datesDiv.innerHTML = `
-                <span>Solved: <strong>${prog.lastSolved ? formatDate(prog.lastSolved) : 'Never'}</strong> (${prog.reviewCount}x)</span>
-                <span>Review: <strong>${prog.nextReview ? formatDate(prog.nextReview) : '-'}</strong></span>
+                <span>Solved: <strong>${prog.lastSolved ? formatDate(prog.lastSolved) : 'Never'}</strong></span>
             `;
             repBox.appendChild(datesDiv);
-            
-            // Star rating inside row
-            const starsBar = document.createElement("div");
-            starsBar.className = "confidence-rating-bar";
-            starsBar.title = "Self-Confidence Score (Rates Spaced Repetition)";
-            
-            for (let stars = 1; stars <= 5; stars++) {
-                const starBtn = document.createElement("button");
-                starBtn.className = `rating-star-btn ${prog.confidence >= stars ? 'active' : ''}`;
-                starBtn.innerHTML = `
-                    <svg viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                `;
-                starBtn.addEventListener("click", () => {
-                    updateQuestionConfidence(q.id, stars);
-                });
-                starsBar.appendChild(starBtn);
-            }
-            repBox.appendChild(starsBar);
             
             tdRep.appendChild(repBox);
             tr.appendChild(tdRep);
@@ -926,10 +874,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderTable();
     });
 
-    sortBySelector.addEventListener("change", (e) => {
-        activeSort = e.target.value;
-        renderTable();
-    });
+    // Sort dropdown removed from UI
 
     // Reset Filters Actions
     btnResetFilters.addEventListener("click", resetAllFilters);
