@@ -1,0 +1,442 @@
+#,Pattern / Algorithm,Question,Status,Solution / Hints,Link
+,,,,
+,── TWO POINTERS (CONVERGING) ──,,,,
+1,Two Pointers (Converging),Check whether a string is a palindrome after ignoring case and punctuation.,Not Done,"Two pointers from both ends. Skip non-alphanumeric. Compare lowercased. O(n).",https://leetcode.com/problems/valid-palindrome/
+2,Two Pointers (Converging),Solve two-sum in a sorted array.,Not Done,"Left and right pointers. Move left if sum < target, move right if sum > target. O(n).",https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+3,Two Pointers (Converging),Find all triplets with sum zero or equal to a target.,Not Done,"Sort. Fix one element, two-pointer on rest. Skip duplicates. O(n²).",https://leetcode.com/problems/3sum/
+4,Two Pointers (Converging),Find all quadruplets with sum equal to a target.,Not Done,"Sort. Fix two elements, two-pointer on rest. Skip duplicates. O(n³).",https://leetcode.com/problems/4sum/
+5,Two Pointers (Converging),Find the container with the most water.,Not Done,"Two pointers from both ends. Move the shorter line inward. Area = min(h) × width. O(n).",https://leetcode.com/problems/container-with-most-water/
+6,Two Pointers (Converging),Compute trapped rain water.,Not Done,"Two pointers with leftMax and rightMax. Move from the side with smaller max. O(n) time O(1) space.",https://leetcode.com/problems/trapping-rain-water/
+7,Two Pointers (Converging),Remove duplicates from a sorted array in place.,Not Done,"Slow (write) and fast (read) pointers. Write when new element differs. O(n).",https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+8,Two Pointers (Converging),Move all zeroes to the end while preserving relative order.,Not Done,"Two pointers: one for next non-zero position. Swap non-zero elements forward. O(n).",https://leetcode.com/problems/move-zeroes/
+9,Two Pointers (Converging),Merge two sorted arrays in place.,Not Done,"Start from end of both arrays. Place larger element at back. O(m+n).",https://leetcode.com/problems/merge-sorted-array/
+10,Two Pointers (Converging),Return the sorted squares of a sorted array.,Not Done,"Two pointers from both ends. Compare absolute values, fill result array from back. O(n).",https://leetcode.com/problems/squares-of-a-sorted-array/
+11,Two Pointers (Converging),Decide whether removing at most one character can make a string a palindrome.,Not Done,"Two pointers. On mismatch, try skipping left or right char and check remaining substring. O(n).",https://leetcode.com/problems/valid-palindrome-ii/
+12,Two Pointers (Converging),Find common elements across three sorted arrays in linear time.,Not Done,"Three pointers, one per array. Advance the pointer with the smallest value. O(n1+n2+n3).",https://www.geeksforgeeks.org/find-common-elements-three-sorted-arrays/
+13,Two Pointers (Converging),Merge three sorted arrays into one sorted array with duplicates removed.,Not Done,"Three-pointer merge. Skip duplicates during insertion. O(n1+n2+n3).",https://www.geeksforgeeks.org/merge-3-sorted-arrays/
+,,,,
+,── FAST & SLOW POINTERS (FLOYD'S) ──,,,,
+14,Fast & Slow Pointers,Detect a loop in a linked list.,Not Done,"Slow (1 step) and fast (2 steps). If they meet, cycle exists. O(n) time O(1) space.",https://leetcode.com/problems/linked-list-cycle/
+15,Fast & Slow Pointers,Find the starting node of the loop in a linked list.,Not Done,"After detection, reset one pointer to head. Both move 1 step. Meeting point = cycle start.",https://leetcode.com/problems/linked-list-cycle-ii/
+16,Fast & Slow Pointers,Find the middle node of a linked list.,Not Done,"Slow and fast pointers. When fast reaches end, slow is at middle. O(n).",https://leetcode.com/problems/middle-of-the-linked-list/
+17,Fast & Slow Pointers,Remove the nth node from the end.,Not Done,"Two pointers with n gap. When fast reaches end, slow is at (n+1)th from end. O(n) one pass.",https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+18,Fast & Slow Pointers,Check whether a linked list is a palindrome.,Not Done,"Find mid (slow/fast), reverse second half, compare with first half, restore. O(n) time O(1) space.",https://leetcode.com/problems/palindrome-linked-list/
+19,Fast & Slow Pointers,Find the repeated number (Floyd's on array).,Not Done,"Treat values as next pointers. Floyd's cycle detection on array. O(n) time O(1) space.",https://leetcode.com/problems/find-the-duplicate-number/
+,,,,
+,── SLIDING WINDOW (VARIABLE SIZE) ──,,,,
+20,Sliding Window (Variable),Find the length of the longest substring without repeating characters.,Not Done,"Expand right, shrink left on duplicate using hashset/map. Track maxLen. O(n).",https://leetcode.com/problems/longest-substring-without-repeating-characters/
+21,Sliding Window (Variable),Find the longest substring with at most k distinct characters.,Not Done,"Expand right, shrink left when distinct > k using hashmap of char counts. O(n).",https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
+22,Sliding Window (Variable),Find the minimum window substring containing all characters of another string.,Not Done,"Two hashmaps. Expand right until valid. Shrink left while still valid. Track min. O(n+m).",https://leetcode.com/problems/minimum-window-substring/
+23,Sliding Window (Variable),Find the maximum consecutive 1s if you may flip at most k zeroes.,Not Done,"Track zero count in window. Shrink left when zeros > k. Track max window size. O(n).",https://leetcode.com/problems/max-consecutive-ones-iii/
+24,Sliding Window (Variable),Find the minimum-length subarray with sum at least a target.,Not Done,"Expand right. Shrink left while sum >= target. Track minLen. O(n) for positive nums.",https://leetcode.com/problems/minimum-size-subarray-sum/
+25,Sliding Window (Variable),Count the number of subarrays with product less than k.,Not Done,"Expand right, shrink left when product >= k. Count += (right − left + 1) each step. O(n).",https://leetcode.com/problems/subarray-product-less-than-k/
+26,Sliding Window (Variable),Solve Fruit Into Baskets or longest subarray with at most two distinct values.,Not Done,"Sliding window + hashmap. Shrink left when distinct > 2. Same pattern as Q21. O(n).",https://leetcode.com/problems/fruit-into-baskets/
+27,Sliding Window (Variable),Find the longest repeating-character window after changing at most k characters.,Not Done,"Track maxFreq in window. Shrink when windowLen − maxFreq > k. O(n).",https://leetcode.com/problems/longest-repeating-character-replacement/
+28,Sliding Window (Variable),Find the minimum swaps needed to group all elements <= k together.,Not Done,"Count elements <= k = window size. Slide fixed window, count bad elements. Min bad = answer.",https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together-ii/
+,,,,
+,── SLIDING WINDOW (FIXED SIZE) ──,,,,
+29,Sliding Window (Fixed),Find the maximum sum or average of a fixed-size window.,Not Done,"Add right element, subtract left element. Track max. O(n).",https://leetcode.com/problems/maximum-average-subarray-i/
+30,Sliding Window (Fixed),Find the sliding window maximum using a deque or monotonic queue.,Not Done,"Monotonic decreasing deque. Remove smaller from back, expired from front. O(n).",https://leetcode.com/problems/sliding-window-maximum/
+31,Sliding Window (Fixed),Design a moving average over a data stream.,Not Done,"Queue of fixed size. Maintain running sum. Add new, remove old when full. O(1) per add.",https://leetcode.com/problems/moving-average-from-data-stream/
+32,Sliding Window (Fixed),Design a hit counter over a moving time window.,Not Done,"Queue of timestamps. Dequeue expired on query. Or circular buffer of size 300. O(1) amortized.",https://leetcode.com/problems/design-hit-counter/
+,,,,
+,── PREFIX SUM + HASHMAP ──,,,,
+33,Prefix Sum + HashMap,Count the number of subarrays whose sum is exactly k.,Not Done,"prefixSum hashmap. For each sum, check if (sum − k) exists in map. O(n).",https://leetcode.com/problems/subarray-sum-equals-k/
+34,Prefix Sum + HashMap,Count the number of subarrays whose sum is divisible by k.,Not Done,"prefixSum mod k + hashmap. Same remainder → subarray divisible by k. Handle negative mods.",https://leetcode.com/problems/subarray-sums-divisible-by-k/
+35,Prefix Sum + HashMap,Count the number of subarrays with equal numbers of 0s and 1s.,Not Done,"Replace 0 with −1. Problem becomes 'subarrays with sum 0'. Prefix sum + hashmap. O(n).",https://leetcode.com/problems/contiguous-array/
+36,Prefix Sum + HashMap,Find the length of the longest zero-sum subarray.,Not Done,"Prefix sum + hashmap storing first occurrence of each sum. Max length = i − first[sum]. O(n).",https://www.geeksforgeeks.org/find-the-largest-subarray-with-0-sum/
+37,Prefix Sum + HashMap,Find an equilibrium or pivot index.,Not Done,"Compute total. Scan left-to-right: if leftSum == total − leftSum − arr[i], found. O(n).",https://leetcode.com/problems/find-pivot-index/
+38,Prefix Sum + HashMap,Compute the product of array except self.,Not Done,"Two-pass: prefix products left→right, suffix products right→left. O(n) without division.",https://leetcode.com/problems/product-of-array-except-self/
+,,,,
+,── HASHMAP / FREQUENCY COUNTING ──,,,,
+39,HashMap / Counting,Find the intersection of two arrays including handling duplicates.,Not Done,"HashMap to count elements of one array. Iterate second and decrement. O(m+n).",https://leetcode.com/problems/intersection-of-two-arrays-ii/
+40,HashMap / Counting,Find the longest consecutive sequence in an unsorted array.,Not Done,"HashSet. For each num where num−1 not in set, count forward. O(n) amortized.",https://leetcode.com/problems/longest-consecutive-sequence/
+41,HashMap / Counting,Count distinct pairs with difference equal to k.,Not Done,"HashSet: for each element check if element+k exists. Or sort + two pointers. O(n).",https://leetcode.com/problems/k-diff-pairs-in-an-array/
+42,HashMap / Counting,Find the first non-repeating character in a string.,Not Done,"Frequency map pass 1. Pass 2: first char with count 1. O(n).",https://leetcode.com/problems/first-unique-character-in-a-string/
+43,HashMap / Counting,Determine whether two strings are anagrams.,Not Done,"Frequency count array of size 26. Increment for s1, decrement for s2. Check all zero. O(n).",https://leetcode.com/problems/valid-anagram/
+44,HashMap / Counting,Group a list of strings into anagram buckets.,Not Done,"HashMap with sorted string (or char-frequency tuple) as key. O(n·k log k).",https://leetcode.com/problems/group-anagrams/
+45,HashMap / Counting,Count how many distinct strings are possible after exactly one swap.,Not Done,"Try all O(n²) swaps with a set. Optimize with character frequency analysis.",https://www.geeksforgeeks.org/count-of-distinct-strings-that-can-be-obtained-after-performing-exactly-one-swap/
+46,HashMap / Counting,Find the top-k frequent elements.,Not Done,"HashMap for freq + min-heap of size k. Or bucket sort by frequency. O(n log k) or O(n).",https://leetcode.com/problems/top-k-frequent-elements/
+47,HashMap / Counting,Sort characters by frequency using a heap.,Not Done,"Frequency map + max-heap (or bucket sort). Build string from heap. O(n log k).",https://leetcode.com/problems/sort-characters-by-frequency/
+,,,,
+,── KADANE'S ALGORITHM ──,,,,
+48,Kadane's Algorithm,Find the maximum subarray sum.,Not Done,"currentMax = max(num, currentMax + num). Track globalMax. O(n) time O(1) space.",https://leetcode.com/problems/maximum-subarray/
+49,Kadane's Algorithm,Find the maximum product subarray.,Not Done,"Track both maxProd and minProd (negatives flip). Reset on zero. O(n).",https://leetcode.com/problems/maximum-product-subarray/
+50,Kadane's Algorithm,Find the maximum subarray sum with one deletion.,Not Done,"Two arrays: maxEndHere[i] (no deletion) and maxEndHereWithDel[i] (one deletion). O(n).",https://leetcode.com/problems/maximum-subarray-sum-with-one-deletion/
+,,,,
+,── BOYER-MOORE VOTING ──,,,,
+51,Boyer-Moore Voting,Find the majority element that appears more than n/2 times.,Not Done,"Maintain candidate and count. Increment on match, decrement on mismatch. Last candidate wins. O(n) O(1).",https://leetcode.com/problems/majority-element/
+52,Boyer-Moore Voting,Find all elements that appear more than n/3 times.,Not Done,"Extended with two candidates. At most 2 such elements. Verify counts in second pass. O(n).",https://leetcode.com/problems/majority-element-ii/
+,,,,
+,── CYCLIC SORT / INDEX-AS-HASH ──,,,,
+53,Cyclic Sort / Index Mapping,Find the first missing positive integer.,Not Done,"Place each num at index num−1. First index where arr[i] ≠ i+1 is answer. O(n) time O(1) space.",https://leetcode.com/problems/first-missing-positive/
+54,Cyclic Sort / Index Mapping,Find the repeated number and the missing number.,Not Done,"Cyclic sort: place each val at index val−1. The misplaced position reveals both numbers.",https://www.geeksforgeeks.org/find-a-repeating-and-a-missing-number/
+,,,,
+,── DUTCH NATIONAL FLAG ──,,,,
+55,Dutch National Flag,Rearrange a stream of three kinds of objects so equal objects are grouped together.,Not Done,"Three pointers: low, mid, high. Swap mid with low or high based on value. O(n) single pass.",https://leetcode.com/problems/sort-colors/
+,,,,
+,── BINARY SEARCH (CLASSIC) ──,,,,
+56,Binary Search (Classic),Find an integer square root or a square root to fixed precision.,Not Done,"Binary search on [0, n]. Check mid×mid ≤ n. For precision, float binary search. O(log n).",https://leetcode.com/problems/sqrtx/
+57,Binary Search (Classic),Search in a row-wise and column-wise sorted matrix.,Not Done,"Start top-right. Go left if target < current, down if target > current. O(m+n).",https://leetcode.com/problems/search-a-2d-matrix-ii/
+58,Binary Search (Classic),Find the first and last occurrence of a target in a sorted array.,Not Done,"Two binary searches: leftmost (continue left on equal) and rightmost (continue right on equal). O(log n).",https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+59,Binary Search (Classic),Search in a rotated sorted array.,Not Done,"Determine which half is sorted. Check if target lies in sorted half. O(log n).",https://leetcode.com/problems/search-in-rotated-sorted-array/
+60,Binary Search (Classic),Find the minimum element in a rotated sorted array.,Not Done,"Compare mid with right. If mid > right, min is in right half. O(log n).",https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+61,Binary Search (Classic),Find a peak element.,Not Done,"If mid < mid+1, peak is right; else left. O(log n).",https://leetcode.com/problems/find-peak-element/
+62,Binary Search (Classic),Find the k closest elements in a sorted array.,Not Done,"Binary search for insertion point. Expand outward with two pointers. O(log n + k).",https://leetcode.com/problems/find-k-closest-elements/
+63,Binary Search (Classic),Search a value in an infinite or unknown-size sorted array.,Not Done,"Exponential search: double index until exceeding target, then binary search in range. O(log n).",https://leetcode.com/problems/search-in-a-sorted-array-of-unknown-size/
+64,Binary Search (Classic),Find the median of two sorted arrays.,Not Done,"Binary search on smaller array. Partition both. Check boundary conditions. O(log(min(m,n))).",https://leetcode.com/problems/median-of-two-sorted-arrays/
+,,,,
+,── BINARY SEARCH ON ANSWER ──,,,,
+65,Binary Search on Answer,Use binary search on answer to minimize the maximum pages or tasks assigned.,Not Done,"Search on max pages. Feasibility: greedy left→right allocation. O(n log sum).",https://www.geeksforgeeks.org/allocate-minimum-number-pages/
+66,Binary Search on Answer,Find the kth smallest element in a sorted matrix.,Not Done,"Binary search on value range [min, max]. Count elements ≤ mid per row. O(n log(max−min)).",https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
+67,Binary Search on Answer,Maximize the minimum distance between placed items using binary search on answer.,Not Done,"Search on distance. Greedy check: place items left→right with min gap. O(n log range).",https://leetcode.com/problems/magnetic-force-between-two-balls/
+68,Binary Search on Answer,Find the minimum feasible ship capacity to deliver packages within d days.,Not Done,"Search on capacity [max(w), sum(w)]. Greedy simulate loading. O(n log sum).",https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+69,Binary Search on Answer,Split an array to minimize the largest segment sum.,Not Done,"Search on answer. Check if ≤ m parts with each ≤ mid. O(n log sum).",https://leetcode.com/problems/split-array-largest-sum/
+70,Binary Search on Answer,Find the minimum feasible time to finish trips/jobs/machines using a monotonic predicate.,Not Done,"Search on time. Check if total work at time t ≥ required. O(n log maxTime).",https://leetcode.com/problems/minimum-time-to-complete-trips/
+,,,,
+,── MERGE SORT / DIVIDE & CONQUER ──,,,,
+71,Merge Sort / Divide & Conquer,Count inversions in an array.,Not Done,"Modified merge sort. Count inversions during merge step when left[i] > right[j]. O(n log n).",https://www.geeksforgeeks.org/counting-inversions/
+72,Merge Sort / Divide & Conquer,Sort a linked list using merge sort.,Not Done,"Find mid (slow/fast), split, recursively sort halves, merge. O(n log n).",https://leetcode.com/problems/sort-list/
+73,Merge Sort / Divide & Conquer,Find the second largest element in one pass without extra space.,Not Done,"Track two variables: largest and secondLargest. Single pass O(n) O(1) space.",https://www.geeksforgeeks.org/find-second-largest-element-array/
+,,,,
+,── NEXT PERMUTATION / REARRANGEMENT ──,,,,
+74,Next Permutation,Find the next greater number using the same digits.,Not Done,"Find rightmost ascending pair. Swap with smallest larger digit to its right. Reverse suffix. O(n).",https://leetcode.com/problems/next-permutation/
+,,,,
+,── MONOTONIC STACK ──,,,,
+75,Monotonic Stack,Find the next greater element for every array item.,Not Done,"Monotonic decreasing stack. Traverse right→left (or left→right). Pop smaller. O(n).",https://leetcode.com/problems/next-greater-element-i/
+76,Monotonic Stack,Find the next smaller element for every array item.,Not Done,"Monotonic increasing stack. Similar but track smaller elements. O(n).",https://www.geeksforgeeks.org/next-smaller-element/
+77,Monotonic Stack,Find the largest rectangle in a histogram.,Not Done,"Monotonic increasing stack of indices. On pop, compute area with popped bar as shortest. O(n).",https://leetcode.com/problems/largest-rectangle-in-histogram/
+78,Monotonic Stack,Find the maximal rectangle in a binary matrix.,Not Done,"Build histogram row by row. Apply largest-rectangle-in-histogram per row. O(m×n).",https://leetcode.com/problems/maximal-rectangle/
+79,Monotonic Stack,Solve Daily Temperatures.,Not Done,"Monotonic decreasing stack of indices. On warmer day, pop and record distance. O(n).",https://leetcode.com/problems/daily-temperatures/
+80,Monotonic Stack,Solve Stock Span.,Not Done,"Monotonic decreasing stack of (price, index). Span = current index − stack top index. O(n).",https://leetcode.com/problems/online-stock-span/
+81,Monotonic Stack,Find the next greater element in a circular array.,Not Done,"Traverse array twice (2n). Monotonic stack with index % n. O(n).",https://leetcode.com/problems/next-greater-element-ii/
+82,Monotonic Stack,Remove k digits to form the smallest possible number.,Not Done,"Monotonic increasing stack. Remove larger digit from top when smaller comes. Greedy. O(n).",https://leetcode.com/problems/remove-k-digits/
+83,Monotonic Stack,Count square submatrices with all ones.,Not Done,"DP: dp[i][j] = min(left, up, diagonal) + 1. Sum all dp values. O(m×n).",https://leetcode.com/problems/count-square-submatrices-with-all-ones/
+,,,,
+,── STACK-BASED PARSING & SIMULATION ──,,,,
+84,Stack Parsing / Simulation,Evaluate a postfix expression.,Not Done,"Push operands. On operator, pop two, compute, push result. O(n).",https://www.geeksforgeeks.org/evaluation-of-postfix-expression/
+85,Stack Parsing / Simulation,Convert an infix expression to postfix.,Not Done,"Shunting-yard algorithm. Stack for operators. Respect precedence and associativity. O(n).",https://www.geeksforgeeks.org/convert-infix-expression-to-postfix-expression/
+86,Stack Parsing / Simulation,Evaluate an arithmetic expression with operators and parentheses.,Not Done,"Two stacks (values, operators) or recursive descent. Handle precedence. O(n).",https://leetcode.com/problems/basic-calculator/
+87,Stack Parsing / Simulation,Check for balanced parentheses or brackets.,Not Done,"Stack. Push open brackets. Pop on close and check match. Empty stack at end = balanced. O(n).",https://leetcode.com/problems/valid-parentheses/
+88,Stack Parsing / Simulation,Simplify a Unix-style path.,Not Done,"Split by '/'. Push directory names. Pop on '..'. Ignore '.' and empty. Join with '/'.",https://leetcode.com/problems/simplify-path/
+89,Stack Parsing / Simulation,Resolve collision-style stack simulations such as Asteroid Collision.,Not Done,"Stack. Positive goes on. Negative collides with positive tops. Resolve by size. O(n).",https://leetcode.com/problems/asteroid-collision/
+90,Stack Parsing / Simulation,Decode bracket-encoded strings such as 3[a2[c]].,Not Done,"Stack: push count and current string on '['. On ']', pop, repeat, concatenate. O(output length).",https://leetcode.com/problems/decode-string/
+91,Stack Parsing / Simulation,Implement a queue using two stacks.,Not Done,"Push to s1. Pop: if s2 empty, transfer all from s1. Pop from s2. Amortized O(1).",https://leetcode.com/problems/implement-queue-using-stacks/
+92,Stack Parsing / Simulation,Implement a stack using queues.,Not Done,"Push: enqueue, then rotate n−1 times. Pop: dequeue. O(n) push or O(n) pop.",https://leetcode.com/problems/implement-stack-using-queues/
+93,Stack Parsing / Simulation,Design a min stack.,Not Done,"Two stacks: main + min. Push to min when ≤ current min. O(1) getMin.",https://leetcode.com/problems/min-stack/
+94,Stack Parsing / Simulation,Print the first non-repeating character at every step of a character stream.,Not Done,"Queue + frequency map. Dequeue while front has freq > 1. O(n).",https://www.geeksforgeeks.org/find-first-non-repeating-character-stream-characters/
+,,,,
+,── LINKED LIST MANIPULATION ──,,,,
+95,Linked List Techniques,Reverse a singly linked list.,Not Done,"Iterative: three pointers (prev, curr, next). Or recursive. O(n) time O(1) space iterative.",https://leetcode.com/problems/reverse-linked-list/
+96,Linked List Techniques,Reverse a linked list in groups of size k.,Not Done,"Reverse first k nodes. Recursively reverse remaining. Connect groups. O(n).",https://leetcode.com/problems/reverse-nodes-in-k-group/
+97,Linked List Techniques,Merge two sorted linked lists.,Not Done,"Compare heads, attach smaller, advance pointer. Iterative or recursive. O(m+n).",https://leetcode.com/problems/merge-two-sorted-lists/
+98,Linked List Techniques,Clone a linked list with random pointer.,Not Done,"Interleave cloned nodes → set random pointers → separate lists. O(n) without hashmap.",https://leetcode.com/problems/copy-list-with-random-pointer/
+99,Linked List Techniques,Insert into a sorted circular linked list when only an arbitrary node is given.,Not Done,"Traverse to find correct position. Handle wrap-around case (max→min). O(n).",https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/
+100,Linked List Techniques,Find the intersection point of two linked lists.,Not Done,"Get lengths, advance longer by diff, walk together. Or two-pointer cycle trick. O(m+n).",https://leetcode.com/problems/intersection-of-two-linked-lists/
+101,Linked List Techniques,Add two numbers represented by linked lists.,Not Done,"Traverse both, add digits + carry. New nodes per digit. Handle unequal lengths & final carry. O(max(m,n)).",https://leetcode.com/problems/add-two-numbers/
+102,Linked List Techniques,Flatten a multilevel linked list.,Not Done,"DFS / stack. On child, splice child list between current and next. O(n).",https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/
+103,Linked List Techniques,Reorder a linked list by odd and even positions or partition it around a pivot.,Not Done,"Separate into two lists (odd/even indexed), then concatenate. O(n).",https://leetcode.com/problems/odd-even-linked-list/
+104,Linked List Techniques,Select a random node from a singly linked list.,Not Done,"Reservoir sampling. For ith node, pick with probability 1/i. O(n) per call O(1) space.",https://leetcode.com/problems/linked-list-random-node/
+,,,,
+,── GREEDY ──,,,,
+105,Greedy,Find the maximum profit from one stock transaction.,Not Done,"Track minPrice so far. profit = price − minPrice. Track maxProfit. O(n).",https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+106,Greedy,Find the maximum profit from multiple stock transactions.,Not Done,"Add all positive diffs: prices[i] − prices[i−1] when positive. O(n).",https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+107,Greedy,Solve Jump Game.,Not Done,"Track farthest reachable index. If i > farthest, return false. O(n).",https://leetcode.com/problems/jump-game/
+108,Greedy,Solve Jump Game II or minimum jumps to reach the end.,Not Done,"Track currentEnd and farthest. Increment jumps when reaching currentEnd. BFS-like. O(n).",https://leetcode.com/problems/jump-game-ii/
+109,Greedy,Find the minimum number of taps needed to water a garden.,Not Done,"Convert to intervals. Greedy interval covering: always pick the tap reaching farthest. O(n).",https://leetcode.com/problems/minimum-number-of-taps-to-open-to-water-a-garden/
+110,Greedy,Solve the gas station complete-circuit problem.,Not Done,"Track totalSurplus and currentSurplus. Reset start on negative current. If total ≥ 0, answer = start. O(n).",https://leetcode.com/problems/gas-station/
+111,Greedy,Solve the lemonade change greedy simulation.,Not Done,"Track $5 and $10 bills. For $10: give $5. For $20: prefer $10+$5, else 3×$5. O(n).",https://leetcode.com/problems/lemonade-change/
+112,Greedy,Distribute candy subject to neighbor constraints.,Not Done,"Two passes: left→right (compare left neighbor), right→left (compare right). Take max. O(n).",https://leetcode.com/problems/candy/
+113,Greedy,Assign cookies or resources greedily to maximize satisfied demand.,Not Done,"Sort both arrays. Two pointers: assign smallest sufficient cookie to smallest child. O(n log n).",https://leetcode.com/problems/assign-cookies/
+114,Greedy,Solve reverse-greedy transformations such as Broken Calculator.,Not Done,"Work backwards. If target > start: even → divide; odd → add 1. Greedy reverse. O(log target).",https://leetcode.com/problems/broken-calculator/
+115,Greedy,Solve job sequencing with deadlines and profits.,Not Done,"Sort by profit desc. For each job, find latest free slot ≤ deadline using DSU or array. O(n log n).",https://www.geeksforgeeks.org/job-sequencing-problem/
+116,Greedy,Reconstruct a queue by height and position constraints.,Not Done,"Sort by height desc, k asc. Insert each person at index k in result. O(n²).",https://leetcode.com/problems/queue-reconstruction-by-height/
+117,Greedy,Reorganize a string so no two adjacent characters are the same.,Not Done,"Max-heap by frequency. Greedily place most frequent, then next. Return '' if impossible. O(n log k).",https://leetcode.com/problems/reorganize-string/
+118,Greedy,Find the lexicographically smallest string obtainable by removing at most one character.,Not Done,"Find first i where s[i] > s[i+1], remove s[i]. If none found, remove last char. O(n).",https://www.geeksforgeeks.org/lexicographically-smallest-string-formed-by-removing-at-most-one-character/
+119,Greedy,Partition a string or label sequence greedily so each symbol appears in at most one part.,Not Done,"Record last occurrence of each char. Expand partition end to max last occurrence. Cut when i == end. O(n).",https://leetcode.com/problems/partition-labels/
+,,,,
+,── INTERVAL MERGING & SCHEDULING ──,,,,
+120,Interval Merge / Schedule,Merge overlapping intervals.,Not Done,"Sort by start. Merge if current start ≤ prev end. Update end = max(ends). O(n log n).",https://leetcode.com/problems/merge-intervals/
+121,Interval Merge / Schedule,Insert an interval into a sorted non-overlapping list.,Not Done,"Add non-overlapping before. Merge overlapping ones. Add non-overlapping after. O(n).",https://leetcode.com/problems/insert-interval/
+122,Interval Merge / Schedule,Find interval intersections between two lists.,Not Done,"Two pointers. If overlap, add intersection. Advance the one ending first. O(m+n).",https://leetcode.com/problems/interval-list-intersections/
+123,Interval Merge / Schedule,Check whether all meetings can be attended; if not find rooms needed.,Not Done,"Sort by start for attendance check. Min-heap of end times for room count. O(n log n).",https://leetcode.com/problems/meeting-rooms-ii/
+124,Interval Merge / Schedule,Perform activity selection or maximize non-overlapping intervals.,Not Done,"Sort by end time. Greedily pick earliest-ending non-overlapping. O(n log n).",https://www.geeksforgeeks.org/activity-selection-problem-greedy-algo-1/
+125,Interval Merge / Schedule,Find the minimum number of intervals to remove so the rest do not overlap.,Not Done,"Sort by end. Count non-overlapping (activity selection). Remove = total − count. O(n log n).",https://leetcode.com/problems/non-overlapping-intervals/
+126,Interval Merge / Schedule,Find the minimum number of arrows to burst all balloons.,Not Done,"Sort by end. Shoot at first end. Skip covered balloons. Count uncovered. O(n log n).",https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/
+,,,,
+,── SWEEP LINE / EVENT PROCESSING ──,,,,
+127,Sweep Line / Events,Find the point where the maximum number of intervals overlap.,Not Done,"Events: +1 at start, −1 at end. Sort. Track running sum and max. O(n log n).",https://www.geeksforgeeks.org/find-the-point-where-maximum-intervals-overlap/
+128,Sweep Line / Events,Find the minimum number of platforms or rooms needed for intervals.,Not Done,"Sort arrivals and departures. Two-pointer merge. Or sweep line. O(n log n).",https://www.geeksforgeeks.org/minimum-number-platforms-required-railwaybus-station/
+129,Sweep Line / Events,Find the peak number of concurrent intervals.,Not Done,"Same sweep line pattern. Max running sum = peak concurrency. O(n log n).",https://www.geeksforgeeks.org/find-the-point-where-maximum-intervals-overlap/
+130,Sweep Line / Events,Solve car-pooling or capacity scheduling with a sweep-line technique.,Not Done,"+passengers at pickup, −passengers at drop. Sort events. Check if capacity ever exceeded. O(n log n).",https://leetcode.com/problems/car-pooling/
+131,Sweep Line / Events,Find the number of rooms needed for meetings using a min-heap.,Not Done,"Sort by start. Min-heap of end times. If earliest end ≤ new start, reuse. Else add room. O(n log n).",https://leetcode.com/problems/meeting-rooms-ii/
+,,,,
+,── BFS (SHORTEST PATH / LEVEL ORDER) ──,,,,
+132,BFS (Shortest Path),Find the shortest path in an unweighted graph using BFS.,Not Done,"Standard BFS from source. Distance = level in BFS tree. O(V+E).",https://www.geeksforgeeks.org/shortest-path-unweighted-graph/
+133,BFS (Shortest Path),Find the shortest path in a binary maze.,Not Done,"BFS on grid. 4-directional. Walls = 0, paths = 1. O(m×n).",https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/
+134,BFS (Shortest Path),Find the shortest path in a binary matrix.,Not Done,"BFS from (0,0) to (n−1,n−1). 8-directional movement. Track visited. O(m×n).",https://leetcode.com/problems/shortest-path-in-binary-matrix/
+135,BFS (Shortest Path),Find the minimum knight moves and print one valid path.,Not Done,"BFS with 8 L-shaped moves. Track parent for path reconstruction. O(area).",https://leetcode.com/problems/minimum-knight-moves/
+136,BFS (Shortest Path),Solve Word Ladder.,Not Done,"BFS. Each word = node. Edge = differ by 1 char. Use wildcard patterns for efficiency. O(n×L²).",https://leetcode.com/problems/word-ladder/
+137,BFS (Shortest Path),Solve Open the Lock.,Not Done,"BFS from '0000'. 8 neighbors per state (4 wheels × 2 directions). Skip deadends. O(10⁴).",https://leetcode.com/problems/open-the-lock/
+138,BFS (Shortest Path),Solve Snakes and Ladders with BFS.,Not Done,"BFS from cell 1. Try 1–6 dice rolls. Follow snakes/ladders instantly. O(n²).",https://leetcode.com/problems/snakes-and-ladders/
+139,BFS (Shortest Path),Determine whether all rooms can be visited in Keys and Rooms.,Not Done,"BFS/DFS from room 0. Collect keys, visit new rooms. Check if all visited. O(V+E).",https://leetcode.com/problems/keys-and-rooms/
+,,,,
+,── MULTI-SOURCE BFS / FLOOD FILL ──,,,,
+140,Multi-Source BFS,Count the number of islands.,Not Done,"For each unvisited '1', BFS/DFS flood fill and increment count. O(m×n).",https://leetcode.com/problems/number-of-islands/
+141,Multi-Source BFS,Count the number of distinct islands.,Not Done,"DFS with shape encoding (relative positions or direction sequence). HashSet of shapes. O(m×n).",https://leetcode.com/problems/number-of-distinct-islands/
+142,Multi-Source BFS,Find the maximum area of an island.,Not Done,"BFS/DFS flood fill. Track area of each island. Return maximum. O(m×n).",https://leetcode.com/problems/max-area-of-island/
+143,Multi-Source BFS,Solve rotten oranges with multi-source BFS.,Not Done,"Enqueue all rotten initially. BFS layer by layer. Time = layers. Check fresh remaining. O(m×n).",https://leetcode.com/problems/rotting-oranges/
+144,Multi-Source BFS,Perform flood fill.,Not Done,"DFS/BFS from starting cell. Change color of connected same-color cells. O(m×n).",https://leetcode.com/problems/flood-fill/
+145,Multi-Source BFS,Count the number of connected components in a graph.,Not Done,"BFS/DFS from each unvisited node. Or DSU. Count components. O(V+E).",https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
+,,,,
+,── BFS / DIJKSTRA WITH STATE ──,,,,
+146,BFS with State / Dijkstra,Solve the water jug problem both as state-space search and with gcd reasoning.,Not Done,"BFS on states (a,b). Or math: solvable iff target % gcd(jug1,jug2) == 0. O(jug1×jug2) for BFS.",https://leetcode.com/problems/water-and-jug-problem/
+147,BFS with State / Dijkstra,Find a path with minimum effort in a grid.,Not Done,"Dijkstra: state = (row, col). Weight = max abs diff along path. O(m×n log(m×n)).",https://leetcode.com/problems/path-with-minimum-effort/
+148,BFS with State / Dijkstra,Solve Swim in Rising Water.,Not Done,"Dijkstra with max edge weight. Or binary search on time + BFS. O(n² log n).",https://leetcode.com/problems/swim-in-rising-water/
+149,BFS with State / Dijkstra,Find the shortest path with alternating edge colors.,Not Done,"BFS with state = (node, last_color). Expand with alternating color. O(V+E).",https://leetcode.com/problems/shortest-path-with-alternating-colors/
+150,BFS with State / Dijkstra,Find the cheapest flight within k stops.,Not Done,"Modified Bellman-Ford (k+1 iterations). Or BFS with level limit. O(k×E).",https://leetcode.com/problems/cheapest-flights-within-k-stops/
+,,,,
+,── DIJKSTRA / WEIGHTED SHORTEST PATH ──,,,,
+151,Dijkstra / Weighted Graph,Find the shortest path in a weighted graph using Dijkstra's algorithm.,Not Done,"Min-heap priority queue. Relax edges greedily. No negative weights. O((V+E) log V).",https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
+152,Dijkstra / Weighted Graph,Solve Network Delay Time.,Not Done,"Dijkstra from source. Answer = max distance to any node. −1 if unreachable. O((V+E) log V).",https://leetcode.com/problems/network-delay-time/
+153,Dijkstra / Weighted Graph,Find the minimum cost to connect all points.,Not Done,"MST: Prim's (min-heap) or Kruskal's (sort edges + DSU). Manhattan distance. O(n² log n).",https://leetcode.com/problems/min-cost-to-connect-all-points/
+154,Dijkstra / Weighted Graph,Evaluate division queries on a graph.,Not Done,"Build weighted directed graph. DFS/BFS to find path and multiply edge weights. O(Q×(V+E)).",https://leetcode.com/problems/evaluate-division/
+,,,,
+,── TOPOLOGICAL SORT ──,,,,
+155,Topological Sort,Solve course schedule by detecting a cycle in a directed graph.,Not Done,"Kahn's BFS (in-degree) or DFS 3-coloring. Cycle if not all nodes processed. O(V+E).",https://leetcode.com/problems/course-schedule/
+156,Topological Sort,Perform topological sort.,Not Done,"Kahn's: BFS with in-degree tracking. Or DFS: add to stack on finish, reverse. O(V+E).",https://leetcode.com/problems/course-schedule-ii/
+157,Topological Sort,Find eventual safe states in a directed graph.,Not Done,"Reverse graph + topo sort. Or DFS 3-coloring. Safe = nodes not in any cycle. O(V+E).",https://leetcode.com/problems/find-eventual-safe-states/
+158,Topological Sort,Infer an alien dictionary order from sorted words.,Not Done,"Build DAG from adjacent word comparisons. Topological sort. Detect contradictions. O(C).",https://leetcode.com/problems/alien-dictionary/
+159,Topological Sort,Enumerate all paths from source to target in a DAG.,Not Done,"DFS/backtracking. No cycles → explore all paths. Record when target reached. O(2ⁿ × n).",https://leetcode.com/problems/all-paths-from-source-to-target/
+,,,,
+,── UNION-FIND (DSU) ──,,,,
+160,Union-Find (DSU),Implement disjoint set union with path compression and union by rank.,Not Done,"find(x): path compression. union(x,y): attach smaller rank under larger. Near O(1) amortized.",https://www.geeksforgeeks.org/introduction-to-disjoint-set-data-structure-or-union-find-algorithm/
+161,Union-Find (DSU),Use DSU for component counting merges and connectivity queries.,Not Done,"Initialize each as own parent. Union on edges. Components = distinct roots.",https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
+162,Union-Find (DSU),Detect a cycle in an undirected graph.,Not Done,"Process edges. If both endpoints in same set → cycle. O(E × α(V)).",https://www.geeksforgeeks.org/detect-cycle-undirected-graph/
+163,Union-Find (DSU),Find a minimum spanning tree.,Not Done,"Kruskal's: sort edges + DSU. Accept edge if endpoints in different sets. O(E log E).",https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
+164,Union-Find (DSU),Process dynamic island additions or Number of Islands II with DSU.,Not Done,"For each new land, union with adjacent land. Track component count. O(k × α(n)).",https://leetcode.com/problems/number-of-islands-ii/
+165,Union-Find (DSU),Merge accounts using a graph or DSU.,Not Done,"Union accounts sharing same email. Group by root parent. O(n × k × α(n)).",https://leetcode.com/problems/accounts-merge/
+166,Union-Find (DSU),Find a redundant connection.,Not Done,"Process edges with DSU. First edge connecting already-connected nodes is redundant. O(n × α(n)).",https://leetcode.com/problems/redundant-connection/
+,,,,
+,── GRAPH DFS & CYCLE DETECTION ──,,,,
+167,Graph DFS,Detect a cycle in a directed graph.,Not Done,"DFS with 3-color (white/gray/black). Back edge (gray→gray) = cycle. O(V+E).",https://www.geeksforgeeks.org/detect-cycle-in-a-graph/
+168,Graph DFS,Check whether a graph is bipartite.,Not Done,"BFS/DFS 2-coloring. If adjacent nodes get same color, not bipartite. O(V+E).",https://leetcode.com/problems/is-graph-bipartite/
+169,Graph DFS,Clone a graph.,Not Done,"DFS/BFS with hashmap (original→clone). Clone neighbors recursively. O(V+E).",https://leetcode.com/problems/clone-graph/
+,,,,
+,── TARJAN'S ALGORITHM ──,,,,
+170,Tarjan's Algorithm,Find critical connections or bridges in a network.,Not Done,"DFS with disc[] and low[]. Bridge if low[v] > disc[u] for edge u→v. O(V+E).",https://leetcode.com/problems/critical-connections-in-a-network/
+171,Tarjan's Algorithm,Find articulation points in a graph.,Not Done,"Root is AP if ≥ 2 DFS children. Non-root u is AP if child v has low[v] ≥ disc[u]. O(V+E).",https://www.geeksforgeeks.org/articulation-points-or-cut-vertices-in-a-graph/
+,,,,
+,── TREE DFS (BOTTOM-UP / POST-ORDER) ──,,,,
+172,Tree DFS (Post-order),Find the maximum depth of a binary tree.,Not Done,"1 + max(leftDepth, rightDepth). Base: null → 0. O(n).",https://leetcode.com/problems/maximum-depth-of-binary-tree/
+173,Tree DFS (Post-order),Find the minimum depth of a binary tree.,Not Done,"BFS returns first leaf level. Or recursive: handle single-child nodes carefully. O(n).",https://leetcode.com/problems/minimum-depth-of-binary-tree/
+174,Tree DFS (Post-order),Check whether a binary tree is height-balanced.,Not Done,"Return −1 if unbalanced. Check |leftH − rightH| ≤ 1 at each node. O(n).",https://leetcode.com/problems/balanced-binary-tree/
+175,Tree DFS (Post-order),Compute the diameter of a binary tree.,Not Done,"Diameter through node = leftHeight + rightHeight. Track global max. O(n).",https://leetcode.com/problems/diameter-of-binary-tree/
+176,Tree DFS (Post-order),Compute the maximum path sum in a binary tree.,Not Done,"At each node: single path = val + max(left, right, 0). Global = val + left + right. O(n).",https://leetcode.com/problems/binary-tree-maximum-path-sum/
+177,Tree DFS (Post-order),Find the largest subtree that is also a BST.,Not Done,"Return (isBST, size, min, max) per subtree. Track global max size. O(n).",https://leetcode.com/problems/largest-bst-subtree/
+178,Tree DFS (Post-order),Count univalue subtrees.,Not Done,"Subtree is univalue if children are univalue and same value as root. O(n).",https://leetcode.com/problems/count-univalue-subtrees/
+179,Tree DFS (Post-order),Find the maximum sum of tree nodes such that no two adjacent nodes are chosen.,Not Done,"DP: include (val + grandchildren) vs exclude (children sums). Return pair. O(n).",https://leetcode.com/problems/house-robber-iii/
+180,Tree DFS (Post-order),Find leaves of a binary tree in rounds.,Not Done,"Leaf height = 0. Internal = 1 + max(children). Group by height. O(n).",https://leetcode.com/problems/find-leaves-of-binary-tree/
+181,Tree DFS (Post-order),Check whether one tree is a subtree of another.,Not Done,"For each node in main tree, check subtree match. O(m×n). Or serialize + KMP.",https://leetcode.com/problems/subtree-of-another-tree/
+182,Tree DFS (Post-order),Convert a BST into a greater-sum tree.,Not Done,"Reverse inorder (right→root→left). Maintain running sum. Replace each value. O(n).",https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/
+,,,,
+,── TREE DFS (TOP-DOWN / PRE-ORDER) ──,,,,
+183,Tree DFS (Pre-order),Solve root-to-leaf path sum existence.,Not Done,"Subtract node value from target. At leaf, check remaining == 0. O(n).",https://leetcode.com/problems/path-sum/
+184,Tree DFS (Pre-order),Print all root-to-leaf paths whose sum equals a target.,Not Done,"DFS with path tracking and backtracking. Record path when leaf + sum matches. O(n).",https://leetcode.com/problems/path-sum-ii/
+185,Tree DFS (Pre-order),Count good nodes in a binary tree.,Not Done,"DFS passing max-so-far. Node is good if val ≥ max-so-far. O(n).",https://leetcode.com/problems/count-good-nodes-in-binary-tree/
+186,Tree DFS (Pre-order),Turn a binary tree upside down under a specified parent-child transform.,Not Done,"Leftmost leaf → new root. Parent → right child, sibling → left. Iterative or recursive.",https://leetcode.com/problems/binary-tree-upside-down/
+,,,,
+,── TREE BFS / LEVEL-BASED ──,,,,
+187,Tree BFS / Level-based,Perform level-order traversal.,Not Done,"BFS with queue. Process level by level using queue size. O(n).",https://leetcode.com/problems/binary-tree-level-order-traversal/
+188,Tree BFS / Level-based,Perform zigzag level-order traversal.,Not Done,"BFS. Alternate direction per level using a flag or deque. O(n).",https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+189,Tree BFS / Level-based,Perform vertical-order traversal.,Not Done,"BFS/DFS with (column, row). TreeMap<col, list>. Sort by col then row. O(n log n).",https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
+190,Tree BFS / Level-based,Print the top view or bottom view of a binary tree.,Not Done,"BFS with horizontal distance. Top: first node per HD. Bottom: last node per HD. O(n).",https://www.geeksforgeeks.org/print-nodes-top-view-binary-tree/
+191,Tree BFS / Level-based,Perform diagonal traversal.,Not Done,"Group nodes by diagonal d. Left child: d+1, right child: same d. O(n).",https://www.geeksforgeeks.org/diagonal-traversal-of-binary-tree/
+192,Tree BFS / Level-based,Print the left view or right view of a binary tree.,Not Done,"BFS: first (left) or last (right) node of each level. Or DFS with level tracking. O(n).",https://leetcode.com/problems/binary-tree-right-side-view/
+193,Tree BFS / Level-based,Perform boundary traversal.,Not Done,"Left boundary (top-down) + leaves (left→right) + right boundary (bottom-up). No duplicates. O(n).",https://leetcode.com/problems/boundary-of-binary-tree/
+194,Tree BFS / Level-based,Compute the sum of leaf nodes at the minimum level.,Not Done,"BFS. At first level with a leaf, sum all leaves at that level. O(n).",https://www.geeksforgeeks.org/sum-leaf-nodes-minimum-level/
+195,Tree BFS / Level-based,Find the maximum width of a binary tree.,Not Done,"BFS with position indexing. Width = rightmost − leftmost + 1. Use offset for overflow. O(n).",https://leetcode.com/problems/maximum-width-of-binary-tree/
+196,Tree BFS / Level-based,Find all nodes at distance k from a target node.,Not Done,"Build parent pointers (BFS/DFS). Then BFS k levels from target. O(n).",https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+197,Tree BFS / Level-based,Find the amount of time needed to infect an entire binary tree from a start node.,Not Done,"Build graph (parent pointers). BFS from start. Time = max BFS depth. O(n).",https://leetcode.com/problems/amount-of-time-for-binary-tree-to-be-infected/
+198,Tree BFS / Level-based,Reverse the odd levels of a binary tree.,Not Done,"BFS level by level. At odd levels, reverse the node values. O(n).",https://leetcode.com/problems/reverse-odd-levels-of-binary-tree/
+,,,,
+,── BST PROPERTIES ──,,,,
+199,BST Properties,Compute range sum in a BST.,Not Done,"If node < low → go right. If node > high → go left. Else add value and go both. O(n).",https://leetcode.com/problems/range-sum-of-bst/
+200,BST Properties,Find two nodes in a BST whose values sum to k.,Not Done,"Inorder → sorted array → two pointers. Or BST iterator + reverse iterator. O(n).",https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+201,BST Properties,Find the inorder successor in a BST.,Not Done,"If right child: go right then leftmost. Else: ancestor where node is in left subtree. O(h).",https://leetcode.com/problems/inorder-successor-in-bst/
+202,BST Properties,Find the predecessor and successor of a key in a BST.,Not Done,"Traverse. Update predecessor going right, successor going left. O(h).",https://www.geeksforgeeks.org/inorder-predecessor-successor-given-key-bst/
+203,BST Properties,Find the closest value or k closest values in a BST.,Not Done,"BST search for closest. For k closest: inorder + sliding window, or pred/succ stacks. O(h + k).",https://leetcode.com/problems/closest-binary-search-tree-value/
+,,,,
+,── TREE CONSTRUCTION & SERIALIZATION ──,,,,
+204,Tree Construction,Build or reason about a tree from inorder and level-order traversal.,Not Done,"Root from level-order first element. Partition inorder. Recursively filter level-order.",https://www.geeksforgeeks.org/construct-tree-inorder-level-order-traversals/
+205,Tree Construction,Serialize and deserialize a binary tree.,Not Done,"Preorder with null markers. Serialize: node,left,right. Deserialize: read preorder, build recursively.",https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+,,,,
+,── LOWEST COMMON ANCESTOR ──,,,,
+206,LCA,Find the lowest common ancestor in a binary tree.,Not Done,"If node is p or q, return it. Recurse left and right. If both non-null, current is LCA. O(n).",https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+207,LCA,Find the lowest common ancestor in an N-ary tree.,Not Done,"Count target nodes found in children subtrees. If ≥ 2, current is LCA. O(n).",https://www.geeksforgeeks.org/lca-for-general-or-n-ary-trees/
+,,,,
+,── HEAP / PRIORITY QUEUE (TOP-K / MERGE) ──,,,,
+208,Heap / Priority Queue,Find the k largest distinct elements without fully sorting the array.,Not Done,"Min-heap of size k. Iterate array. O(n log k). Or Quickselect O(n) average.",https://www.geeksforgeeks.org/k-largestor-smallest-elements-in-an-array/
+209,Heap / Priority Queue,Find the kth smallest or kth largest element in an array.,Not Done,"Quickselect O(n) avg. Or min/max heap of size k: O(n log k).",https://leetcode.com/problems/kth-largest-element-in-an-array/
+210,Heap / Priority Queue,Merge k sorted linked lists.,Not Done,"Min-heap of size k with heads. Extract min, push next from that list. O(n log k).",https://leetcode.com/problems/merge-k-sorted-lists/
+211,Heap / Priority Queue,Merge k sorted arrays and optionally remove duplicates.,Not Done,"Min-heap of (value, array_idx, elem_idx). Extract min, push next. Skip dups. O(n log k).",https://www.geeksforgeeks.org/merge-k-sorted-arrays/
+212,Heap / Priority Queue,Maintain the median of a data stream.,Not Done,"Two heaps: maxHeap (lower half), minHeap (upper half). Balance sizes. Median from tops. O(log n).",https://leetcode.com/problems/find-median-from-data-stream/
+213,Heap / Priority Queue,Implement heap sort and explain heapify.,Not Done,"Build max-heap O(n). Repeatedly extract max and sift-down. O(n log n). Heapify = sift down.",https://www.geeksforgeeks.org/heap-sort/
+214,Heap / Priority Queue,Connect ropes or merge files with minimum total cost.,Not Done,"Min-heap. Always merge two smallest. Total = sum of intermediate costs. O(n log n).",https://leetcode.com/problems/minimum-cost-to-connect-sticks/
+215,Heap / Priority Queue,Find the smallest range covering at least one element from each of k lists.,Not Done,"Min-heap with one per list. Track max. Range = [heap_min, max]. Advance min's list. O(n log k).",https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
+216,Heap / Priority Queue,Maximize capital or profit under project-selection constraints such as IPO.,Not Done,"Sort by capital. Min-heap for capital, max-heap for affordable profits. Greedy. O(n log n).",https://leetcode.com/problems/ipo/
+217,Heap / Priority Queue,Find the k closest points to the origin.,Not Done,"Max-heap of size k by distance. Or Quickselect. O(n log k) or O(n).",https://leetcode.com/problems/k-closest-points-to-origin/
+218,Heap / Priority Queue,Sort a nearly sorted array where each element is at most k positions away.,Not Done,"Min-heap of size k+1. Extract min for each element. O(n log k).",https://www.geeksforgeeks.org/nearly-sorted-algorithm/
+219,Heap / Priority Queue,Maintain the kth largest element in a stream.,Not Done,"Min-heap of size k. If new > top, replace and heapify. Top = kth largest. O(log k) per add.",https://leetcode.com/problems/kth-largest-element-in-a-stream/
+220,Heap / Priority Queue,Schedule tasks with cooldown constraints using a heap-based strategy.,Not Done,"Max-heap by freq. Each cycle: pick top n+1 tasks. Idle if insufficient. O(tasks × log 26).",https://leetcode.com/problems/task-scheduler/
+221,Heap / Priority Queue,Design an iterator over k sorted lists or streams.,Not Done,"Min-heap of (value, list_idx, elem_idx). Extract min, push next. O(log k) per next().",https://www.geeksforgeeks.org/merge-k-sorted-arrays/
+,,,,
+,── BACKTRACKING ──,,,,
+222,Backtracking,Solve Rat in a Maze.,Not Done,"Try all 4 directions. Mark visited. Backtrack on dead end. O(4^(n²)).",https://www.geeksforgeeks.org/rat-in-a-maze/
+223,Backtracking,Solve N-Queens.,Not Done,"Place row by row. Check column, diagonal, anti-diagonal. O(n!).",https://leetcode.com/problems/n-queens/
+224,Backtracking,Solve Sudoku.,Not Done,"Try 1–9 in each empty cell. Validate row, column, 3×3 box. O(9^(empty cells)).",https://leetcode.com/problems/sudoku-solver/
+225,Backtracking,Generate all permutations of an array or string.,Not Done,"Swap or visited-array approach. n! permutations. O(n × n!).",https://leetcode.com/problems/permutations/
+226,Backtracking,Generate the power set or all subsets.,Not Done,"Include/exclude each element. Or iterative bitmask. 2ⁿ subsets.",https://leetcode.com/problems/subsets/
+227,Backtracking,Solve Combination Sum and its common variants.,Not Done,"Sort for pruning. Allow reuse (I) or not (II). Handle dups (II). O(2^target).",https://leetcode.com/problems/combination-sum/
+228,Backtracking,Partition a string into palindromic pieces.,Not Done,"Try each prefix. If palindrome, recurse on suffix. O(n × 2ⁿ).",https://leetcode.com/problems/palindrome-partitioning/
+229,Backtracking,Generate balanced parentheses.,Not Done,"Track open/close count. '(' if open < n, ')' if close < open. O(4ⁿ/√n).",https://leetcode.com/problems/generate-parentheses/
+230,Backtracking,Solve Word Search in a grid.,Not Done,"DFS from each matching cell. Mark visited. Try 4 directions. O(m×n×4^L).",https://leetcode.com/problems/word-search/
+231,Backtracking,Generate all palindrome permutations of a string.,Not Done,"Check feasibility (≤1 odd-freq char). Generate half-permutations, mirror.",https://leetcode.com/problems/palindrome-permutation-ii/
+232,Backtracking,Generate all letter combinations of a phone number.,Not Done,"Map digits to letters. Recurse generating all combos. O(4ⁿ).",https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+233,Backtracking,Restore all valid IP addresses from a digit string.,Not Done,"Try 1–3 digit segments (0–255). Exactly 4 segments. No leading zeros. Bounded O(1).",https://leetcode.com/problems/restore-ip-addresses/
+234,Backtracking,Partition an array into k equal-sum subsets.,Not Done,"Target = sum/k. Assign each element to a bucket. Sort desc for pruning. O(k^n).",https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
+235,Backtracking,Insert operators into a digit string to reach a target value.,Not Done,"Try +, −, × between digits. Track cumulative and last operand for ×. O(4ⁿ).",https://leetcode.com/problems/expression-add-operators/
+236,Backtracking,Solve graph coloring or M-coloring.,Not Done,"Try each of M colors per vertex. Check adjacency constraints. O(M^V).",https://www.geeksforgeeks.org/m-coloring-problem/
+237,Backtracking,Form a square from matchsticks or solve equivalent subset-assignment.,Not Done,"Partition into 4 equal subsets. Backtracking with pruning. Sort desc. O(4ⁿ).",https://leetcode.com/problems/matchsticks-to-square/
+238,Backtracking,Generate unique permutations when duplicates are present.,Not Done,"Sort. Skip if same as prev and prev not used in current branch. O(n × n!).",https://leetcode.com/problems/permutations-ii/
+,,,,
+,── DP — LINEAR (1D) ──,,,,
+239,DP — Linear (1D),Count ways to reach the nth stair and common variants.,Not Done,"dp[i] = dp[i−1] + dp[i−2]. Fibonacci-like. O(1) space possible. O(n).",https://leetcode.com/problems/climbing-stairs/
+240,DP — Linear (1D),Find the minimum cost to climb stairs.,Not Done,"dp[i] = cost[i] + min(dp[i−1], dp[i−2]). O(n).",https://leetcode.com/problems/min-cost-climbing-stairs/
+241,DP — Linear (1D),Find the maximum sum of non-adjacent elements.,Not Done,"dp[i] = max(dp[i−1], dp[i−2] + arr[i]). O(n) time O(1) space.",https://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/
+242,DP — Linear (1D),Solve House Robber.,Not Done,"Same pattern: dp[i] = max(skip, rob). O(n).",https://leetcode.com/problems/house-robber/
+243,DP — Linear (1D),Solve House Robber II.,Not Done,"Circular: run House Robber on [0..n−2] and [1..n−1]. Take max. O(n).",https://leetcode.com/problems/house-robber-ii/
+244,DP — Linear (1D),Count the number of ways to decode a digit string to letters.,Not Done,"dp[i] = dp[i−1] (valid single) + dp[i−2] (valid pair 10–26). O(n).",https://leetcode.com/problems/decode-ways/
+245,DP — Linear (1D),Solve Word Break.,Not Done,"dp[i] = true if any dp[j] and s[j..i] in dict. O(n² × L) or trie-based.",https://leetcode.com/problems/word-break/
+246,DP — Linear (1D),Find the longest increasing subsequence.,Not Done,"O(n²) DP. Or O(n log n) patience sorting with binary search on tails array.",https://leetcode.com/problems/longest-increasing-subsequence/
+247,DP — Linear (1D),Find the longest arithmetic subsequence.,Not Done,"dp[i][diff] = length of AP ending at i with diff. HashMap per index. O(n²).",https://leetcode.com/problems/longest-arithmetic-subsequence/
+248,DP — Linear (1D),Find the longest run of consecutive 1s in a binary array.,Not Done,"Linear scan. Reset counter on 0, update max on 1. O(n).",https://leetcode.com/problems/max-consecutive-ones/
+249,DP — Linear (1D),Find the nth ugly number or its variants.,Not Done,"Three pointers for multiples of 2, 3, 5. dp[i] = min(dp[p2]×2, dp[p3]×3, dp[p5]×5). O(n).",https://leetcode.com/problems/ugly-number-ii/
+250,DP — Linear (1D),Print the maximum number of As using four keys.,Not Done,"dp[i] = i for i ≤ 6. dp[i] = max(dp[j] × (i−j−1)) for breakpoints j. O(n²).",https://leetcode.com/problems/4-keys-keyboard/
+,,,,
+,── DP — STRING MATCHING ──,,,,
+251,DP — String,Solve longest common subsequence.,Not Done,"dp[i][j] = dp[i−1][j−1]+1 if match, else max(dp[i−1][j], dp[i][j−1]). O(m×n).",https://leetcode.com/problems/longest-common-subsequence/
+252,DP — String,Solve edit distance.,Not Done,"dp[i][j] = dp[i−1][j−1] if match. Else 1 + min(insert, delete, replace). O(m×n).",https://leetcode.com/problems/edit-distance/
+253,DP — String,Count distinct subsequences.,Not Done,"dp[i][j] = dp[i−1][j] + (dp[i−1][j−1] if s[i]==t[j]). O(m×n).",https://leetcode.com/problems/distinct-subsequences/
+254,DP — String,Solve wildcard matching.,Not Done,"'*' matches empty or any prefix. dp[i][j] = dp[i−1][j] || dp[i][j−1] for '*'. O(m×n).",https://leetcode.com/problems/wildcard-matching/
+255,DP — String,Solve regex-style matching with . and *.,Not Done,"'.' matches any. 'x*' matches 0+ x. Careful * handling in 2D DP. O(m×n).",https://leetcode.com/problems/regular-expression-matching/
+256,DP — String,Solve interleaving string.,Not Done,"dp[i][j] = true if s3[i+j−1] matches s1[i] (with dp[i−1][j]) or s2[j] (with dp[i][j−1]). O(m×n).",https://leetcode.com/problems/interleaving-string/
+257,DP — String,Solve Word Break II.,Not Done,"Backtracking + memoization. Return all valid sentences. Cache per start index.",https://leetcode.com/problems/word-break-ii/
+,,,,
+,── DP — KNAPSACK / SUBSET SUM ──,,,,
+258,DP — Knapsack / Subset,Solve 0/1 knapsack.,Not Done,"dp[i][w] = max(skip, take). Optimize to 1D iterating w backwards. O(n×W).",https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+259,DP — Knapsack / Subset,Solve unbounded knapsack or rod cutting.,Not Done,"1D DP: dp[w] = max(dp[w], dp[w−wt[i]] + val[i]). Iterate w forward. O(n×W).",https://www.geeksforgeeks.org/unbounded-knapsack-repetition-items-allowed/
+260,DP — Knapsack / Subset,Solve coin change for minimum coins.,Not Done,"dp[amt] = min(dp[amt], dp[amt − coin] + 1). O(amount × coins).",https://leetcode.com/problems/coin-change/
+261,DP — Knapsack / Subset,Solve coin change for number of ways.,Not Done,"dp[amt] += dp[amt − coin]. Outer loop on coins (not amounts) to avoid permutations. O(amount × coins).",https://leetcode.com/problems/coin-change-ii/
+262,DP — Knapsack / Subset,Solve partition equal subset sum.,Not Done,"Target = sum/2. Boolean knapsack: dp[j] |= dp[j − nums[i]]. O(n × sum).",https://leetcode.com/problems/partition-equal-subset-sum/
+263,DP — Knapsack / Subset,Solve weighted job scheduling or maximum profit in job scheduling.,Not Done,"Sort by end. Binary search last non-overlapping. dp[i] = max(dp[i−1], profit[i] + dp[j]). O(n log n).",https://leetcode.com/problems/maximum-profit-in-job-scheduling/
+,,,,
+,── DP — GRID ──,,,,
+264,DP — Grid,Count matrix paths with blocked cells.,Not Done,"dp[i][j] = dp[i−1][j] + dp[i][j−1] if not blocked, else 0. O(m×n).",https://leetcode.com/problems/unique-paths-ii/
+265,DP — Grid,Find the minimum path sum in a grid.,Not Done,"dp[i][j] = grid[i][j] + min(dp[i−1][j], dp[i][j−1]). O(m×n).",https://leetcode.com/problems/minimum-path-sum/
+266,DP — Grid,Find the minimum-cost path in a grid with constrained moves.,Not Done,"DP if only down/right. Dijkstra if 4-directional with varying costs. O(m×n) or O(m×n log).",https://www.geeksforgeeks.org/min-cost-path-dp-6/
+267,DP — Grid,Find the maximum path sum in a matrix.,Not Done,"Top-down DP. dp[i][j] = val + max(up-left, up, up-right). O(m×n).",https://www.geeksforgeeks.org/maximum-path-sum-matrix/
+268,DP — Grid,Find the longest increasing path in a matrix.,Not Done,"DFS + memoization from each cell. Try 4 directions where neighbor > current. O(m×n).",https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+269,DP — Grid,Solve Cherry Pickup or its common 2-agent grid variants.,Not Done,"3D DP: two agents simultaneously. dp[r][c1][c2]. No double-counting same cell. O(m×n²).",https://leetcode.com/problems/cherry-pickup/
+,,,,
+,── DP — INTERVAL ──,,,,
+270,DP — Interval,Solve Burst Balloons.,Not Done,"dp[i][j] = max over k of dp[i][k] + dp[k][j] + nums[i]×nums[k]×nums[j]. O(n³).",https://leetcode.com/problems/burst-balloons/
+271,DP — Interval,Solve matrix chain multiplication.,Not Done,"dp[i][j] = min over k of dp[i][k] + dp[k+1][j] + cost(i,k,j). O(n³).",https://www.geeksforgeeks.org/matrix-chain-multiplication-dp-8/
+272,DP — Interval,Solve Boolean Parenthesization.,Not Done,"Track true/false counts per subexpression. Combine with AND/OR/XOR operators. O(n³).",https://www.geeksforgeeks.org/boolean-parenthesization-problem-dp-37/
+,,,,
+,── DP — PALINDROME ──,,,,
+273,DP — Palindrome,Find the longest palindromic subsequence.,Not Done,"LCS of string and its reverse. Or gap DP: dp[i][j] = dp[i+1][j−1]+2 if match. O(n²).",https://leetcode.com/problems/longest-palindromic-subsequence/
+274,DP — Palindrome,Find the longest palindromic substring.,Not Done,"Expand around center (odd + even). O(n²). Or Manacher's algorithm O(n).",https://leetcode.com/problems/longest-palindromic-substring/
+,,,,
+,── DP — MISCELLANEOUS ──,,,,
+275,DP — Misc,Solve Paint House or minimum-cost coloring variants.,Not Done,"dp[i][color] = cost[i][color] + min(dp[i−1][other colors]). O(n×k).",https://leetcode.com/problems/paint-house/
+276,DP — Misc,Partition an array into four non-empty parts minimizing gap of segment sums.,Not Done,"Prefix sums + DP/binary search. Try all partition points, minimize max−min of segment sums.",https://www.geeksforgeeks.org/partition-into-four-parts/
+277,DP — Misc,DP on trees or ancestor-jump queries with many queries.,Not Done,"Binary lifting for LCA/kth ancestor. Or tree DP with rerooting technique. O(n log n) preprocessing.",https://leetcode.com/problems/kth-ancestor-of-a-tree-node/
+278,DP — Misc,Given an equation string with one unknown X compute X.,Not Done,"Parse equation, collect X coefficients on one side and constants on other. Solve linear equation.",https://leetcode.com/problems/solve-the-equation/
+,,,,
+,── KMP / Z-ALGORITHM / PATTERN MATCHING ──,,,,
+279,String Pattern Matching,Implement substring search using KMP.,Not Done,"Build failure/prefix function. Use it to skip re-comparing matched chars. O(n+m).",https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
+280,String Pattern Matching,Perform pattern search using the Z algorithm or rolling hash.,Not Done,"Z-array: Z[i] = length of longest prefix match starting at i. Or Rabin-Karp rolling hash. O(n+m).",https://www.geeksforgeeks.org/z-algorithm-linear-time-pattern-searching-algorithm/
+281,String Pattern Matching,Validate abbreviations or shorthand forms like i18n or A2S.,Not Done,"Two pointers. Parse number from abbreviation, skip that many chars in word. Compare rest.",https://leetcode.com/problems/valid-word-abbreviation/
+,,,,
+,── STRING MANIPULATION ──,,,,
+282,String Manipulation,Find the longest common prefix of a list of strings.,Not Done,"Compare char by char across all strings. Or sort and compare first and last. O(n×m).",https://leetcode.com/problems/longest-common-prefix/
+283,String Manipulation,Compress a string in place.,Not Done,"Two pointers: read and write. Count consecutive chars, write char + count. O(n).",https://leetcode.com/problems/string-compression/
+284,String Manipulation,Reverse a string in blocks or chunks of size k.,Not Done,"Iterate in steps of 2k. Reverse first k chars in each block. O(n).",https://leetcode.com/problems/reverse-string-ii/
+285,String Manipulation,Count subsequences that start with one character and end with another.,Not Done,"Count start chars seen so far. When end char found, add count. O(n).",https://www.geeksforgeeks.org/count-subsequences-of-type-ai-bj-ck/
+286,String Manipulation,Convert Roman numerals to integers.,Not Done,"Map symbols to values. If current < next, subtract; else add. Left to right. O(n).",https://leetcode.com/problems/roman-to-integer/
+287,String Manipulation,Convert an integer to Roman numeral form.,Not Done,"Greedy: map [1000,900,500,400,...,1] to symbols. Subtract largest, append symbol. O(1).",https://leetcode.com/problems/integer-to-roman/
+,,,,
+,── TRIE ──,,,,
+288,Trie,Build a trie for insert search and prefix autocomplete.,Not Done,"TrieNode: children map + isEnd. Insert/search/startsWith in O(L) per operation.",https://leetcode.com/problems/implement-trie-prefix-tree/
+289,Trie,Find the longest common prefix using a trie.,Not Done,"Insert all strings. Walk root while node has single child and not end-of-word. O(total chars).",https://www.geeksforgeeks.org/longest-common-prefix-using-trie/
+290,Trie,Build a word dictionary that supports wildcard queries.,Not Done,"Trie + DFS for '.' wildcard. On '.', try all children. O(26^dots × L) worst case.",https://leetcode.com/problems/design-add-and-search-words-data-structure/
+291,Trie,Design search suggestions or autocomplete using a trie.,Not Done,"Walk trie to prefix node. DFS to collect top 3 lexicographic matches. O(n×L).",https://leetcode.com/problems/search-suggestions-system/
+292,Trie,Solve maximum XOR or XOR queries with a trie.,Not Done,"Binary trie (MSB to LSB). For max XOR, greedily choose opposite bit. O(n × 32).",https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/
+293,Trie,Replace words in a sentence using dictionary roots stored in a trie.,Not Done,"Build trie from roots. For each word, find shortest prefix match. Replace. O(n×L).",https://leetcode.com/problems/replace-words/
+294,Trie,Solve Word Search II using trie plus backtracking.,Not Done,"Trie from words. Backtrack on grid from trie root. Prune when no match. O(m×n×4^L).",https://leetcode.com/problems/word-search-ii/
+,,,,
+,── SEGMENT TREE / BIT (FENWICK) ──,,,,
+295,Segment Tree / BIT,Build a segment tree for range min max or sum queries.,Not Done,"Build O(n). Query and update O(log n). Array-based or node-based.",https://www.geeksforgeeks.org/segment-tree-data-structure/
+296,Segment Tree / BIT,Use a segment tree with a custom range condition such as max − min < k.,Not Done,"Store both min and max per node. Merge intervals. Query checks condition. O(n log n).",https://www.geeksforgeeks.org/segment-tree-set-2-range-maximum-query-node-update/
+297,Segment Tree / BIT,Use a Fenwick tree or BIT for prefix sums and inversion-style queries.,Not Done,"update(i, delta) and query(i) in O(log n). Great for prefix sums and inversions.",https://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/
+298,Segment Tree / BIT,Count inversions using a BIT or segment tree.,Not Done,"Process right to left. Query BIT for count of smaller seen. Update. O(n log n).",https://www.geeksforgeeks.org/count-inversions-array-set-3-using-bit/
+299,Segment Tree / BIT,Support range updates and point queries with a BIT or segment tree.,Not Done,"Difference array + BIT. Range update [l,r]: update(l, val), update(r+1, −val). Point query = prefix sum.",https://www.geeksforgeeks.org/binary-indexed-tree-range-updates-point-queries/
+,,,,
+,── BINARY LIFTING / SPARSE TABLE ──,,,,
+300,Binary Lifting / Sparse Table,Use binary lifting for kth ancestor or jump queries on a tree.,Not Done,"Precompute up[v][k] = 2^k-th ancestor. Jump by decomposing k into powers of 2. O(n log n) build.",https://leetcode.com/problems/kth-ancestor-of-a-tree-node/
+301,Binary Lifting / Sparse Table,Use a sparse table for static range minimum or maximum query.,Not Done,"table[i][j] = min of 2^j elements from i. Query: overlap two blocks. O(n log n) build O(1) query.",https://www.geeksforgeeks.org/sparse-table/
+,,,,
+,── CUSTOM DATA STRUCTURE DESIGN ──,,,,
+302,Data Structure Design,Design an LRU cache.,Not Done,"HashMap + doubly linked list. Get/put O(1). Accessed → move to front. Evict from tail.",https://leetcode.com/problems/lru-cache/
+303,Data Structure Design,Design a modified LRU cache where values are lists and get consumes from front.,Not Done,"LRU + deque per key. Get pops front. If empty, remove entry.",https://www.geeksforgeeks.org/lru-cache-implementation/
+304,Data Structure Design,Design a string-keyed photo cache or similar cache with eviction policy.,Not Done,"LRU/LFU with string keys. Track memory/count limits. HashMap + ordered structure.",https://www.geeksforgeeks.org/lru-cache-implementation/
+305,Data Structure Design,Design an LFU cache.,Not Done,"HashMap + frequency buckets (doubly linked lists). Track minFreq. O(1) get/put.",https://leetcode.com/problems/lfu-cache/
+306,Data Structure Design,Design an All O(1) data structure supporting frequency updates.,Not Done,"HashMap + doubly linked list of frequency buckets. inc/dec/getMax/getMin all O(1).",https://leetcode.com/problems/all-oone-data-structure/
+307,Data Structure Design,Design a RandomizedSet with O(1) insert delete and get-random.,Not Done,"HashMap (val→idx) + ArrayList. Delete: swap with last, pop. Random: random index. O(1).",https://leetcode.com/problems/insert-delete-getrandom-o1/
+308,Data Structure Design,Design a RandomizedCollection that allows duplicates.,Not Done,"HashMap (val→set of indices) + ArrayList. Swap-delete trick. Handle index sets. O(1) avg.",https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed/
+309,Data Structure Design,Design a time-based key-value store.,Not Done,"HashMap (key → list of (timestamp, value)). Binary search on timestamp for get. O(log n).",https://leetcode.com/problems/time-based-key-value-store/
+310,Data Structure Design,Design browser history with back and forward navigation.,Not Done,"Two stacks or doubly linked list. Visit clears forward. O(1) per operation.",https://leetcode.com/problems/design-browser-history/
+311,Data Structure Design,Design a circular deque.,Not Done,"Array with front/rear pointers. Wrap with modulo. All operations O(1).",https://leetcode.com/problems/design-circular-deque/
+312,Data Structure Design,Design a snapshot array.,Not Done,"Per-index list of (snap_id, value). Binary search on snap_id for get. O(log S) get.",https://leetcode.com/problems/snapshot-array/
+313,Data Structure Design,Design an in-memory file system path structure.,Not Done,"Trie of path components. Each node: children map, optional content, isFile flag.",https://leetcode.com/problems/design-in-memory-file-system/
+314,Data Structure Design,Design a leaderboard with score updates and top-k queries.,Not Done,"HashMap + sorted structure (TreeMap). addScore/top/reset. O(log n) per op.",https://leetcode.com/problems/design-a-leaderboard/
+315,Data Structure Design,Design a stock price fluctuation tracker.,Not Done,"HashMap (timestamp→price) + TreeMap or two heaps for max/min. O(log n).",https://leetcode.com/problems/stock-price-fluctuation/
+316,Data Structure Design,Design a structure that supports add(x) and query(largest <= x).,Not Done,"Balanced BST with floor operation. Or sorted list + binary search. O(log n) per op.",https://www.geeksforgeeks.org/floor-in-a-sorted-array/
+317,Data Structure Design,Design an inverted index or word-search engine over a document collection.,Not Done,"Map each word to document ID list. Multi-word = intersect posting lists. TF-IDF for ranking.",https://www.geeksforgeeks.org/inverted-index/
+318,Data Structure Design,Explain or implement external sorting for data larger than memory.,Not Done,"Split into memory-sized chunks. Sort each. K-way merge with min-heap. O(n log n).",https://www.geeksforgeeks.org/external-sorting/
+,,,,
+,── BIT MANIPULATION / XOR TRICKS ──,,,,
+319,Bit Manipulation / XOR,Find the two numbers that appear once when every other appears twice.,Not Done,"XOR all → xor of two uniques. Split by any set bit. XOR each group separately. O(n).",https://leetcode.com/problems/single-number-iii/
+320,Bit Manipulation / XOR,Find the unique number when every other number appears three times.,Not Done,"For each bit position, sum bits mod 3. Or use two bitmasks (ones, twos). O(n).",https://leetcode.com/problems/single-number-ii/
+321,Bit Manipulation / XOR,Count set bits from 1 to n.,Not Done,"For each bit position, count cycles of 0s and 1s. Or formula with highest set bit. O(log n).",https://leetcode.com/problems/counting-bits/
+322,Bit Manipulation / XOR,Check whether a number is a power of two or a power of four.,Not Done,"Power of 2: n > 0 && (n & (n−1)) == 0. Power of 4: also no odd-position bits. O(1).",https://leetcode.com/problems/power-of-two/
+323,Bit Manipulation / XOR,Find a missing number and a repeated number using bit manipulation.,Not Done,"XOR all elements and 1..n. Use set-bit to partition into two groups. O(n).",https://www.geeksforgeeks.org/find-a-repeating-and-a-missing-number/
+324,Bit Manipulation / XOR,Generate Gray code.,Not Done,"i XOR (i >> 1) for i in 0..2ⁿ−1. Or recursive: reflect and prepend 0/1.",https://leetcode.com/problems/gray-code/
+325,Bit Manipulation / XOR,Add two integers without using +.,Not Done,"XOR for sum without carry. AND << 1 for carry. Repeat until carry = 0. O(32).",https://leetcode.com/problems/sum-of-two-integers/
+326,Bit Manipulation / XOR,Divide two integers without using / * or %.,Not Done,"Subtract divisor shifted left (powers of 2). Binary long division. O(32).",https://leetcode.com/problems/divide-two-integers/
+,,,,
+,── MATH / NUMBER THEORY ──,,,,
+327,Math / Number Theory,Compute Euler's totient function.,Not Done,"phi(n) = n × ∏(1 − 1/p) for prime factors p. Factorize first. O(√n).",https://www.geeksforgeeks.org/eulers-totient-function/
+328,Math / Number Theory,Count trailing zeroes in a factorial.,Not Done,"Count factors of 5: n/5 + n/25 + n/125 + ... O(log n).",https://leetcode.com/problems/factorial-trailing-zeroes/
+329,Math / Number Theory,Compute fast power x^n in O(log n).,Not Done,"Binary exponentiation. Odd → x × power(x, n−1). Even → power(x², n/2). Handle negative n.",https://leetcode.com/problems/powx-n/
+330,Math / Number Theory,Convert a number from one base to another.,Not Done,"To base 10 first (multiply by base powers). Then to target (repeated division). O(digits).",https://www.geeksforgeeks.org/convert-base-decimal-vice-versa/
+331,Math / Number Theory,Convert a fraction to recurring decimal form.,Not Done,"Long division. HashMap of remainder → position. When remainder repeats, insert parentheses.",https://leetcode.com/problems/fraction-to-recurring-decimal/
+332,Math / Number Theory,Use gcd or lcm reasoning for problems like the water jug puzzle.,Not Done,"Euclidean gcd. lcm = a×b/gcd. Water jug: solvable iff target % gcd(a,b) == 0.",https://leetcode.com/problems/water-and-jug-problem/
+333,Math / Number Theory,Generate primes in a range using sieve-based techniques.,Not Done,"Sieve of Eratosthenes: mark multiples. O(n log log n). Segmented sieve for large ranges.",https://leetcode.com/problems/count-primes/
+334,Math / Number Theory,Compute modular exponentiation and reason about modular inverse basics.,Not Done,"Binary exp with mod. Inverse: power(a, mod−2, mod) when mod is prime (Fermat's little theorem).",https://www.geeksforgeeks.org/modular-exponentiation-power-in-modular-arithmetic/
+335,Math / Number Theory,Check whether a number is a perfect square without directly using square root.,Not Done,"Binary search on [0, n]. Check mid×mid == n. Or Newton's method. O(log n).",https://leetcode.com/problems/valid-perfect-square/
+336,Math / Number Theory,Solve the bulb-switching problem.,Not Done,"Bulb stays on iff toggled odd times = perfect square index. Answer = floor(√n).",https://leetcode.com/problems/bulb-switcher/
+337,Math / Number Theory,Count cubes with 0 1 2 or 3 painted faces after painting outside.,Not Done,"3 faces: 8 corners. 2 faces: 12(n−2) edges. 1 face: 6(n−2)². 0 faces: (n−2)³.",https://www.geeksforgeeks.org/painted-cube-puzzle/
+338,Math / Number Theory,Handle square-root exponentiation overflow and modular-arithmetic edge cases.,Not Done,"Use long/BigInteger. Check overflow before multiply. Apply mod consistently.",https://www.geeksforgeeks.org/how-to-avoid-overflow-in-modular-multiplication/
+339,Math / Number Theory,Find the length of the longest run of consecutive 1s in a binary array.,Not Done,"Linear scan. Reset counter on 0, update max on 1. O(n).",https://leetcode.com/problems/max-consecutive-ones/
