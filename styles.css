@@ -1,43 +1,44 @@
 /* Global Reset & Custom Variables */
 :root {
-    --bg-primary: #080c14;
-    --bg-secondary: #0f1424;
-    --bg-card: #151b30;
-    --bg-card-hover: #1b233f;
-    --bg-card-active: #212c4f;
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f5f9;
+    --bg-card-active: #e2e8f0;
     
-    --border-color: #1f2a47;
-    --border-hover: #2e3f6b;
-    --border-active: #3b82f6;
+    --border-color: #e2e8f0;
+    --border-hover: #cbd5e1;
+    --border-active: #4f46e5;
     
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
     --text-muted: #64748b;
+    --text-on-primary: #ffffff;
     
-    --color-primary: #6366f1;
-    --color-primary-hover: #4f46e5;
-    --color-primary-glow: rgba(99, 102, 241, 0.15);
+    --color-primary: #4f46e5;
+    --color-primary-hover: #3730a3;
+    --color-primary-glow: rgba(79, 70, 229, 0.08);
     
-    --color-success: #10b981;
-    --color-success-bg: rgba(16, 185, 129, 0.1);
-    --color-success-border: rgba(16, 185, 129, 0.2);
+    --color-success: #059669;
+    --color-success-bg: rgba(5, 150, 105, 0.08);
+    --color-success-border: rgba(5, 150, 105, 0.15);
     
-    --color-warning: #f59e0b;
-    --color-warning-bg: rgba(245, 158, 11, 0.1);
-    --color-warning-border: rgba(245, 158, 11, 0.2);
+    --color-warning: #d97706;
+    --color-warning-bg: rgba(217, 119, 6, 0.08);
+    --color-warning-border: rgba(217, 119, 6, 0.15);
     
-    --color-danger: #ef4444;
-    --color-danger-bg: rgba(239, 68, 68, 0.1);
-    --color-danger-border: rgba(239, 68, 68, 0.2);
+    --color-danger: #dc2626;
+    --color-danger-bg: rgba(220, 38, 38, 0.08);
+    --color-danger-border: rgba(220, 38, 38, 0.15);
     
-    --color-info: #3b82f6;
-    --color-info-bg: rgba(59, 130, 246, 0.1);
-    --color-info-border: rgba(59, 130, 246, 0.2);
+    --color-info: #2563eb;
+    --color-info-bg: rgba(37, 99, 235, 0.08);
+    --color-info-border: rgba(37, 99, 235, 0.15);
 
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-glow: 0 0 20px 0 rgba(99, 102, 241, 0.12);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 15px 0 rgba(79, 70, 229, 0.08);
     
     --radius-sm: 6px;
     --radius-md: 10px;
@@ -117,7 +118,6 @@ body {
     width: 28px;
     height: 28px;
     color: var(--color-primary);
-    filter: drop-shadow(0 0 4px var(--color-primary));
 }
 
 .logo-area h1 {
@@ -203,8 +203,8 @@ body {
 .week-btn.active {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
-    color: var(--text-primary);
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+    color: var(--text-on-primary);
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
 }
 
 #btn-week-all {
@@ -767,7 +767,7 @@ body {
 }
 
 .questions-table th {
-    background-color: rgba(15, 20, 36, 0.4);
+    background-color: var(--bg-primary);
     padding: 14px 20px;
     font-size: 12px;
     font-weight: 600;
@@ -792,12 +792,12 @@ body {
 }
 
 .question-row-master:hover {
-    background-color: rgba(27, 35, 63, 0.4);
+    background-color: var(--bg-card-hover);
 }
 
 /* If currently active/expanded for notes */
 .question-row-master.expanded {
-    background-color: rgba(27, 35, 63, 0.6);
+    background-color: var(--bg-card-hover);
 }
 
 .question-row-master td {
@@ -1020,7 +1020,7 @@ body {
 
 /* Notes drawer row */
 .notes-drawer-row {
-    background-color: rgba(15, 20, 36, 0.25);
+    background-color: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -1122,7 +1122,7 @@ body {
     width: 100%;
     padding: 8px;
     background-color: var(--color-primary);
-    color: var(--text-primary);
+    color: var(--text-on-primary);
     border-radius: var(--radius-sm);
     text-decoration: none;
     font-size: 12px;
@@ -1138,7 +1138,7 @@ body {
 .primary-btn {
     background-color: var(--color-primary);
     border: 1px solid var(--color-primary);
-    color: var(--text-primary);
+    color: var(--text-on-primary);
     cursor: pointer;
     font-weight: 600;
     padding: 10px 20px;
@@ -1243,7 +1243,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(8, 12, 20, 0.75);
+    background-color: rgba(15, 23, 42, 0.3);
     backdrop-filter: blur(8px);
     z-index: 1000;
     display: flex;
