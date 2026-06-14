@@ -444,7 +444,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             // 1. MAIN ROW
             const tr = document.createElement("tr");
-            tr.className = `question-row-master ${isExpanded ? 'expanded' : ''}`;
+            tr.className = `question-row-master ${isExpanded ? 'expanded' : ''} ${prog.status === 'Done' ? 'completed-row' : ''}`;
             tr.id = `q-row-${q.id}`;
             
             // Col ID

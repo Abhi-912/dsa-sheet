@@ -800,6 +800,14 @@ body {
     background-color: var(--bg-card-hover);
 }
 
+.question-row-master.completed-row {
+    background-color: var(--color-success-bg);
+}
+
+.question-row-master.completed-row:hover {
+    background-color: rgba(5, 150, 105, 0.12);
+}
+
 .question-row-master td {
     padding: 16px 20px;
     font-size: 14px;
