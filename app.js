@@ -839,15 +839,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Due Today click filter
-    cardDueToday.addEventListener("click", () => {
-        statusTabs.forEach(t => t.classList.remove("active"));
-        tabAll.classList.add("active"); // Put status tab to All (or we can select it)
-        activeStatus = "due";
-        updateFilterUI();
-        renderTable();
-    });
-
     // 12. SEARCH & SELECT FILTERS EVENTS
     searchInput.addEventListener("input", (e) => {
         searchQuery = e.target.value;
