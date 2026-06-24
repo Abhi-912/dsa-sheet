@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Status Tabs
     const tabAll = document.getElementById("tab-status-all");
-    const tabTodo = document.getElementById("tab-status-todo");
     const tabInProgress = document.getElementById("tab-status-inprogress");
     const tabDone = document.getElementById("tab-status-done");
 
@@ -927,7 +926,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 11. STATUS TABS ACTIONS
-    const statusTabs = [tabAll, tabTodo, tabInProgress, tabDone];
+    const statusTabs = [tabAll, tabInProgress, tabDone];
     statusTabs.forEach(tab => {
         if (tab) {
             tab.addEventListener("click", () => {
