@@ -11,76 +11,27 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="styles.css?v=1.1">
 </head>
-<body>
+<body class="dark-theme">
     <div class="app-container">
-        <!-- Sidebar Navigation -->
-        <aside class="app-sidebar" id="appSidebar">
-            <div class="sidebar-header">
-                <div class="logo-area">
-                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                    </svg>
-                    <h1>Abhishek DSA Sheet</h1>
-                </div>
-                <button class="mobile-close-btn" id="mobileCloseBtn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Weekly Progress List -->
-            <div class="sidebar-section">
-                <h2 class="section-title">10-WEEK STUDY PLAN</h2>
-                <div class="week-selector-grid">
-                    <button class="week-btn active" data-week="all" id="btn-week-all">All</button>
-                    <button class="week-btn" data-week="1" id="btn-week-1">W1</button>
-                    <button class="week-btn" data-week="2" id="btn-week-2">W2</button>
-                    <button class="week-btn" data-week="3" id="btn-week-3">W3</button>
-                    <button class="week-btn" data-week="4" id="btn-week-4">W4</button>
-                    <button class="week-btn" data-week="5" id="btn-week-5">W5</button>
-                    <button class="week-btn" data-week="6" id="btn-week-6">W6</button>
-                    <button class="week-btn" data-week="7" id="btn-week-7">W7</button>
-                    <button class="week-btn" data-week="8" id="btn-week-8">W8</button>
-                    <button class="week-btn" data-week="9" id="btn-week-9">W9</button>
-                    <button class="week-btn" data-week="10" id="btn-week-10">W10</button>
-                </div>
-            </div>
-
-            <!-- Patterns Navigation -->
-            <div class="sidebar-section patterns-section">
-                <div class="section-title-row">
-                    <h2 class="section-title">PATTERNS</h2>
-                    <span class="patterns-count" id="activePatternsCount">0 / 30</span>
-                </div>
-                <div class="patterns-list" id="patternsList">
-                    <!-- Loaded dynamically via JS -->
-                </div>
-            </div>
-            
-            <div class="sidebar-footer">
-                <button class="footer-btn" id="btnBackup" title="Backup & Restore Progress">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75v6.75m0 0l-3-3m3 3l3-3m-8.25 6a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
-                    </svg>
-                    <span>Backup / Restore</span>
-                </button>
-            </div>
-        </aside>
-
         <!-- Main Workspace -->
         <main class="app-main">
             <!-- Header Bar -->
             <header class="main-header">
                 <div class="header-left">
-                    <button class="menu-toggle-btn" id="menuToggleBtn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    <div class="logo-area">
+                        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                         </svg>
-                    </button>
-                    <h2 class="dashboard-greeting" id="dashboardGreeting">DSA Spaced Repetition</h2>
+                        <h1 class="header-logo-title">Abhishek DSA Sheet</h1>
+                    </div>
                 </div>
                 <div class="header-right">
+                    <button class="footer-btn header-backup-btn" id="btnBackup" title="Backup & Restore Progress">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75v6.75m0 0l-3-3m3 3l3-3m-8.25 6a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                        </svg>
+                        <span>Backup / Restore</span>
+                    </button>
                     <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Mode">
                         <!-- Sun Icon (shown in dark mode) -->
                         <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -116,8 +67,6 @@
                         <span id="completionRatio">0 / 339 Solved</span>
                     </div>
                 </div>
-
-
 
                 <!-- Difficulty Ratios -->
                 <div class="stat-card difficulty-summary-card">
@@ -167,7 +116,7 @@
                     <div class="status-tabs-container">
                         <button class="status-tab active" data-status="all" id="tab-status-all">All</button>
                         <button class="status-tab" data-status="todo" id="tab-status-todo">Todo</button>
-                        <button class="status-tab" data-status="inprogress" id="tab-status-inprogress">In Progress</button>
+                        <button class="status-tab" data-status="inprogress" id="tab-status-inprogress">To Be Reviewed</button>
                         <button class="status-tab" data-status="done" id="tab-status-done">Done</button>
                     </div>
 
@@ -180,8 +129,6 @@
                             <option value="Hard">Hard Only</option>
                         </select>
                     </div>
-                    
-
                 </div>
 
                 <!-- Active Filter Badges Info -->
@@ -200,23 +147,8 @@
                     <div class="showing-count-info" id="showingCountInfo">Showing 0 of 339 questions</div>
                 </div>
 
-                <!-- Table Container -->
-                <div class="questions-table-wrapper">
-                    <table class="questions-table">
-                        <thead>
-                            <tr>
-                                <th class="col-id">#</th>
-                                <th class="col-question">Question</th>
-                                <th class="col-difficulty">Difficulty</th>
-                                <th class="col-status">Status</th>
-                                <th class="col-repetition">Solved Date</th>
-                                <th class="col-actions">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="questionsTableBody">
-                            <!-- Populated dynamically via JS -->
-                        </tbody>
-                    </table>
+                <!-- Tables Container (grouped by pattern dynamically) -->
+                <div class="questions-table-wrapper" id="questionsContainer">
                 </div>
 
                 <!-- Empty State -->

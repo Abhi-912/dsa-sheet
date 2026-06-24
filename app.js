@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // 0. THEME MANAGEMENT
     function initTheme() {
-        const savedTheme = localStorage.getItem("dsa_theme") || "light";
+        const savedTheme = localStorage.getItem("dsa_theme") || "dark";
         if (savedTheme === "dark") {
             document.body.classList.add("dark-theme");
         } else {
@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let activeSort = "id-asc";
     let expandedQuestions = new Set(); // Store IDs of questions with open notes drawers
     let debounceTimers = {}; // Store debouncing timers for auto-saving notes
+    let collapsedPatterns = new Set(); // Store collapsed pattern names
 
     // 2. DOM ELEMENTS
     const sidebar = document.getElementById("appSidebar");
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mobileCloseBtn = document.getElementById("mobileCloseBtn");
     const patternsListContainer = document.getElementById("patternsList");
     const activePatternsCount = document.getElementById("activePatternsCount");
-    const questionsTableBody = document.getElementById("questionsTableBody");
+    const questionsContainer = document.getElementById("questionsContainer");
     const showingCountInfo = document.getElementById("showingCountInfo");
     const emptyState = document.getElementById("emptyState");
     const emptyStateResetBtn = document.getElementById("emptyStateResetBtn");
@@ -102,9 +103,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!userProgress[q.id]) {
                 userProgress[q.id] = createDefaultProgress();
             } else {
+                // Migrate legacy status
+                let currentStatus = userProgress[q.id].status || "Todo";
+                if (currentStatus === "In Progress") {
+                    currentStatus = "To Be Reviewed";
+                }
                 // Ensure all fields exist
                 userProgress[q.id] = {
-                    status: userProgress[q.id].status || "Todo",
+                    status: currentStatus,
                     notes: userProgress[q.id].notes || "",
                     lastSolved: userProgress[q.id].lastSolved || null,
                     confidence: userProgress[q.id].confidence || 0,
@@ -283,6 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 7. RENDER PATTERNS LIST IN SIDEBAR
     function renderPatternsList() {
+        if (!patternsListContainer) return;
         // Collect unique patterns and calculate counts
         const patternMap = {};
         QUESTIONS.forEach(q => {
@@ -357,7 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Filter by Status
             if (activeStatus !== "all") {
                 if (activeStatus === "todo" && prog.status !== "Todo") return false;
-                if (activeStatus === "inprogress" && prog.status !== "In Progress") return false;
+                if (activeStatus === "inprogress" && prog.status !== "To Be Reviewed") return false;
                 if (activeStatus === "done" && prog.status !== "Done") return false;
                 if (activeStatus === "due") {
                     // Due today or overdue
@@ -433,257 +440,343 @@ document.addEventListener("DOMContentLoaded", () => {
         showingCountInfo.textContent = `Showing ${filtered.length} of ${QUESTIONS.length} questions`;
         
         if (filtered.length === 0) {
-            questionsTableBody.innerHTML = "";
+            questionsContainer.innerHTML = "";
             emptyState.style.display = "flex";
             return;
         }
         
         emptyState.style.display = "none";
-        
-        // Generate rows HTML
-        const fragment = document.createDocumentFragment();
-        
+        questionsContainer.innerHTML = "";
+
+        // Group filtered questions by pattern
+        const grouped = {};
         filtered.forEach(q => {
-            const prog = userProgress[q.id];
-            const isExpanded = expandedQuestions.has(q.id);
-            const dueState = getDueState(q.id);
-            
-            // 1. MAIN ROW
-            const tr = document.createElement("tr");
-            tr.className = `question-row-master ${isExpanded ? 'expanded' : ''} ${prog.status === 'Done' ? 'completed-row' : ''} ${prog.status === 'In Progress' ? 'inprogress-row' : ''}`;
-            tr.id = `q-row-${q.id}`;
-            
-            // Col ID
-            const tdId = document.createElement("td");
-            tdId.className = "col-id";
-            tdId.textContent = q.id;
-            tr.appendChild(tdId);
-            
-            // Col Question
-            const tdQuestion = document.createElement("td");
-            tdQuestion.className = "col-question";
-            
-            const titleWrapper = document.createElement("div");
-            titleWrapper.className = "question-title-wrapper";
-            
-            const qTitle = document.createElement("span");
-            qTitle.className = "question-text-title";
-            qTitle.textContent = q.question;
-            titleWrapper.appendChild(qTitle);
-            
-            const metaRow = document.createElement("div");
-            metaRow.className = "question-meta-row";
-            
-            const patternTag = document.createElement("span");
-            patternTag.className = "pattern-badge-tag";
-            patternTag.textContent = q.pattern;
-            metaRow.appendChild(patternTag);
-            
-            const weekTag = document.createElement("span");
-            weekTag.className = "week-badge-tag";
-            weekTag.textContent = `Week ${q.week}`;
-            metaRow.appendChild(weekTag);
-            
-            titleWrapper.appendChild(metaRow);
-            tdQuestion.appendChild(titleWrapper);
-            tr.appendChild(tdQuestion);
-            
-            // Col Difficulty
-            const tdDifficulty = document.createElement("td");
-            tdDifficulty.className = "col-difficulty";
-            const diffSpan = document.createElement("span");
-            diffSpan.className = `diff-badge ${q.difficulty.toLowerCase()}`;
-            diffSpan.textContent = q.difficulty;
-            tdDifficulty.appendChild(diffSpan);
-            tr.appendChild(tdDifficulty);
-            
-            // Col Status
-            const tdStatus = document.createElement("td");
-            tdStatus.className = "col-status";
-            
-            const selectWrapper = document.createElement("div");
-            selectWrapper.className = "status-select-wrapper";
-            
-            const select = document.createElement("select");
-            select.id = `select-status-${q.id}`;
-            select.className = `status-${prog.status.replace(" ", "").toLowerCase()}`;
-            
-            const optTodo = document.createElement("option");
-            optTodo.value = "Todo";
-            optTodo.textContent = "Todo";
-            optTodo.selected = prog.status === "Todo";
-            select.appendChild(optTodo);
-            
-            const optProgress = document.createElement("option");
-            optProgress.value = "In Progress";
-            optProgress.textContent = "In Progress";
-            optProgress.selected = prog.status === "In Progress";
-            select.appendChild(optProgress);
-            
-            const optDone = document.createElement("option");
-            optDone.value = "Done";
-            optDone.textContent = "Done";
-            optDone.selected = prog.status === "Done";
-            select.appendChild(optDone);
-            
-            select.addEventListener("change", (e) => {
-                updateQuestionStatus(q.id, e.target.value);
-            });
-            
-            selectWrapper.appendChild(select);
-            tdStatus.appendChild(selectWrapper);
-            tr.appendChild(tdStatus);
-            
-            // Col Spaced Repetition
-            const tdRep = document.createElement("td");
-            tdRep.className = "col-repetition";
-            
-            const repBox = document.createElement("div");
-            repBox.className = "repetition-data-box";
-            
-            const datesDiv = document.createElement("div");
-            datesDiv.className = "review-info-dates";
-            datesDiv.innerHTML = `
-                <span>Solved: <strong>${prog.lastSolved ? formatDate(prog.lastSolved) : 'Never'}</strong></span>
-            `;
-            repBox.appendChild(datesDiv);
-            
-            tdRep.appendChild(repBox);
-            tr.appendChild(tdRep);
-            
-            // Col Actions
-            const tdActions = document.createElement("td");
-            tdActions.className = "col-actions";
-            
-            const actionsDiv = document.createElement("div");
-            actionsDiv.className = "actions-buttons-row";
-            
-            // Notes Button
-            const btnNotes = document.createElement("button");
-            btnNotes.className = `action-icon-btn notes-btn ${isExpanded ? 'active' : ''} ${prog.notes ? 'has-notes' : ''}`;
-            btnNotes.id = `btn-notes-toggle-${q.id}`;
-            btnNotes.title = prog.notes ? "Edit Notes (Has Notes)" : "Add Notes & View Solution Hints";
-            btnNotes.innerHTML = `
-                <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                </svg>
-            `;
-            btnNotes.addEventListener("click", () => {
-                toggleNotesDrawer(q.id);
-            });
-            actionsDiv.appendChild(btnNotes);
-            
-            // External LeetCode/GFG Link Button
-            const btnLink = document.createElement("a");
-            btnLink.href = q.link;
-            btnLink.target = "_blank";
-            btnLink.className = "action-icon-btn link-btn";
-            btnLink.title = `Solve on external site: ${q.link.includes("leetcode.com") ? 'LeetCode' : 'GeeksforGeeks'}`;
-            btnLink.innerHTML = `
-                <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                </svg>
-            `;
-            actionsDiv.appendChild(btnLink);
-            
-            tdActions.appendChild(actionsDiv);
-            tr.appendChild(tdActions);
-            fragment.appendChild(tr);
-            
-            // 2. NOTES DRAWER ROW (HIDDEN BY DEFAULT)
-            const trDrawer = document.createElement("tr");
-            trDrawer.className = "notes-drawer-row";
-            trDrawer.id = `drawer-row-${q.id}`;
-            trDrawer.style.display = isExpanded ? "table-row" : "none";
-            
-            const tdDrawer = document.createElement("td");
-            tdDrawer.colSpan = 6;
-            
-            const contentBox = document.createElement("div");
-            contentBox.className = "drawer-content-box";
-            contentBox.id = `drawer-content-${q.id}`;
-            contentBox.style.height = isExpanded ? "auto" : "0px";
-            
-            const innerGrid = document.createElement("div");
-            innerGrid.className = "drawer-inner-grid";
-            
-            // Notes Panel (Left side of drawer)
-            const editorPanel = document.createElement("div");
-            editorPanel.className = "notes-editor-panel";
-            
-            const panelHeader = document.createElement("div");
-            panelHeader.className = "panel-header-row";
-            
-            const panelTitle = document.createElement("div");
-            panelTitle.className = "panel-title";
-            panelTitle.innerHTML = `
-                <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
-                    <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd" />
-                </svg> My Review Notes`;
-            panelHeader.appendChild(panelTitle);
-            
-            const saveIndicator = document.createElement("span");
-            saveIndicator.className = "save-indicator";
-            saveIndicator.id = `save-indicator-${q.id}`;
-            saveIndicator.textContent = prog.notes ? "Draft saved locally" : "Empty note";
-            panelHeader.appendChild(saveIndicator);
-            
-            editorPanel.appendChild(panelHeader);
-            
-            const textarea = document.createElement("textarea");
-            textarea.className = "notes-textarea";
-            textarea.placeholder = "Write your key patterns, bugs encountered, or complex corner cases here... (Autosaves)";
-            textarea.value = prog.notes;
-            textarea.id = `notes-textarea-${q.id}`;
-            textarea.addEventListener("input", (e) => {
-                debouncedSaveNotes(q.id, e.target.value);
-            });
-            textarea.addEventListener("blur", (e) => {
-                saveNotesImmediate(q.id, e.target.value);
-            });
-            editorPanel.appendChild(textarea);
-            
-            innerGrid.appendChild(editorPanel);
-            
-            // Hint / Code Template Panel (Right side of drawer)
-            const hintPanel = document.createElement("div");
-            hintPanel.className = "drawer-hint-panel";
-            
-            const hintTitle = document.createElement("div");
-            hintTitle.className = "panel-title";
-            hintTitle.innerHTML = `
-                <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                </svg> Solution Summary`;
-            hintPanel.appendChild(hintTitle);
-            
-            const hintCard = document.createElement("div");
-            hintCard.className = "hint-body-card";
-            
-            const hintText = document.createElement("div");
-            hintText.className = "hint-text-summary";
-            hintText.textContent = q.solution || "No hints available.";
-            hintCard.appendChild(hintText);
-            
-            const hintBtnLink = document.createElement("a");
-            hintBtnLink.href = q.link;
-            hintBtnLink.target = "_blank";
-            hintBtnLink.className = "hint-solve-link";
-            hintBtnLink.innerHTML = `Solve Problem <svg viewBox="0 0 20 20" fill="currentColor" width="12" height="12"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" /><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" /></svg>`;
-            hintCard.appendChild(hintBtnLink);
-            
-            hintPanel.appendChild(hintCard);
-            innerGrid.appendChild(hintPanel);
-            
-            contentBox.appendChild(innerGrid);
-            tdDrawer.appendChild(contentBox);
-            trDrawer.appendChild(tdDrawer);
-            fragment.appendChild(trDrawer);
+            if (!grouped[q.pattern]) {
+                grouped[q.pattern] = [];
+            }
+            grouped[q.pattern].push(q);
         });
-        
-        questionsTableBody.innerHTML = "";
-        questionsTableBody.appendChild(fragment);
+
+        // Determine unique patterns in their original order
+        const orderedPatterns = [];
+        QUESTIONS.forEach(q => {
+            if (!orderedPatterns.includes(q.pattern)) {
+                orderedPatterns.push(q.pattern);
+            }
+        });
+
+        // Render each pattern section
+        orderedPatterns.forEach(patternName => {
+            const patternQuestions = grouped[patternName];
+            if (!patternQuestions || patternQuestions.length === 0) return;
+
+            // Stats for this pattern
+            const allPatternQuestions = QUESTIONS.filter(q => q.pattern === patternName);
+            const totalInPattern = allPatternQuestions.length;
+            const solvedInPattern = allPatternQuestions.filter(q => userProgress[q.id].status === "Done").length;
+            const pct = Math.round((solvedInPattern / totalInPattern) * 100);
+
+            const isCollapsed = collapsedPatterns.has(patternName);
+
+            // Section elements
+            const section = document.createElement("div");
+            section.className = `pattern-section ${isCollapsed ? 'collapsed' : ''}`;
+
+            const header = document.createElement("div");
+            header.className = "pattern-section-header";
+            
+            const headerLeft = document.createElement("div");
+            headerLeft.className = "pattern-header-left";
+            
+            const toggleIcon = document.createElement("span");
+            toggleIcon.className = "pattern-toggle-icon";
+            toggleIcon.textContent = "▼";
+            headerLeft.appendChild(toggleIcon);
+
+            const title = document.createElement("h3");
+            title.className = "pattern-title";
+            title.textContent = patternName;
+            headerLeft.appendChild(title);
+            
+            header.appendChild(headerLeft);
+
+            const headerRight = document.createElement("div");
+            headerRight.className = "pattern-header-right";
+
+            const progressText = document.createElement("span");
+            progressText.className = "pattern-progress-text";
+            progressText.textContent = `${solvedInPattern} / ${totalInPattern} Solved`;
+            headerRight.appendChild(progressText);
+
+            const progressContainer = document.createElement("div");
+            progressContainer.className = "pattern-progress-bar-container";
+            const progressFill = document.createElement("div");
+            progressFill.className = "pattern-progress-bar-fill";
+            progressFill.style.width = `${pct}%`;
+            progressContainer.appendChild(progressFill);
+            headerRight.appendChild(progressContainer);
+
+            header.appendChild(headerRight);
+            section.appendChild(header);
+
+            // Collapsible click handler
+            header.addEventListener("click", () => {
+                if (collapsedPatterns.has(patternName)) {
+                    collapsedPatterns.delete(patternName);
+                    section.classList.remove("collapsed");
+                } else {
+                    collapsedPatterns.add(patternName);
+                    section.classList.add("collapsed");
+                }
+            });
+
+            // Table content container
+            const content = document.createElement("div");
+            content.className = "pattern-section-content";
+
+            const table = document.createElement("table");
+            table.className = "questions-table";
+
+            // Headers (no Solved Date column)
+            const thead = document.createElement("thead");
+            thead.innerHTML = `
+                <tr>
+                    <th class="col-id">#</th>
+                    <th class="col-question">Question</th>
+                    <th class="col-difficulty">Difficulty</th>
+                    <th class="col-status">Status</th>
+                    <th class="col-actions">Actions</th>
+                </tr>
+            `;
+            table.appendChild(thead);
+
+            const tbody = document.createElement("tbody");
+
+            patternQuestions.forEach(q => {
+                const prog = userProgress[q.id];
+                const isExpanded = expandedQuestions.has(q.id);
+
+                // Row creation
+                const tr = document.createElement("tr");
+                tr.className = `question-row-master ${isExpanded ? 'expanded' : ''} ${prog.status === 'Done' ? 'completed-row' : ''} ${(prog.status === 'In Progress' || prog.status === 'To Be Reviewed') ? 'tobereviewed-row' : ''}`;
+                tr.id = `q-row-${q.id}`;
+
+                // Col ID
+                const tdId = document.createElement("td");
+                tdId.className = "col-id";
+                tdId.textContent = q.id;
+                tr.appendChild(tdId);
+
+                // Col Question
+                const tdQuestion = document.createElement("td");
+                tdQuestion.className = "col-question";
+                
+                const titleWrapper = document.createElement("div");
+                titleWrapper.className = "question-title-wrapper";
+                
+                const qTitle = document.createElement("span");
+                qTitle.className = "question-text-title";
+                qTitle.textContent = q.question;
+                titleWrapper.appendChild(qTitle);
+                
+                const metaRow = document.createElement("div");
+                metaRow.className = "question-meta-row";
+                
+                const patternTag = document.createElement("span");
+                patternTag.className = "pattern-badge-tag";
+                patternTag.textContent = q.pattern;
+                metaRow.appendChild(patternTag);
+                
+                const weekTag = document.createElement("span");
+                weekTag.className = "week-badge-tag";
+                weekTag.textContent = `Week ${q.week}`;
+                metaRow.appendChild(weekTag);
+                
+                titleWrapper.appendChild(metaRow);
+                tdQuestion.appendChild(titleWrapper);
+                tr.appendChild(tdQuestion);
+
+                // Col Difficulty
+                const tdDifficulty = document.createElement("td");
+                tdDifficulty.className = "col-difficulty";
+                const diffSpan = document.createElement("span");
+                diffSpan.className = `diff-badge ${q.difficulty.toLowerCase()}`;
+                diffSpan.textContent = q.difficulty;
+                tdDifficulty.appendChild(diffSpan);
+                tr.appendChild(tdDifficulty);
+
+                // Col Status
+                const tdStatus = document.createElement("td");
+                tdStatus.className = "col-status";
+                
+                const selectWrapper = document.createElement("div");
+                selectWrapper.className = "status-select-wrapper";
+                
+                const select = document.createElement("select");
+                select.id = `select-status-${q.id}`;
+                select.className = `status-${prog.status.replace(/\s+/g, "").toLowerCase()}`;
+                
+                const optTodo = document.createElement("option");
+                optTodo.value = "Todo";
+                optTodo.textContent = "Todo";
+                optTodo.selected = prog.status === "Todo";
+                select.appendChild(optTodo);
+                
+                const optProgress = document.createElement("option");
+                optProgress.value = "To Be Reviewed";
+                optProgress.textContent = "To Be Reviewed";
+                optProgress.selected = prog.status === "To Be Reviewed";
+                select.appendChild(optProgress);
+                
+                const optDone = document.createElement("option");
+                optDone.value = "Done";
+                optDone.textContent = "Done";
+                optDone.selected = prog.status === "Done";
+                select.appendChild(optDone);
+                
+                select.addEventListener("change", (e) => {
+                    updateQuestionStatus(q.id, e.target.value);
+                });
+                
+                selectWrapper.appendChild(select);
+                tdStatus.appendChild(selectWrapper);
+                tr.appendChild(tdStatus);
+
+                // Col Actions
+                const tdActions = document.createElement("td");
+                tdActions.className = "col-actions";
+                
+                const actionsDiv = document.createElement("div");
+                actionsDiv.className = "actions-buttons-row";
+                
+                // Notes Toggle Button
+                const btnNotes = document.createElement("button");
+                btnNotes.className = `action-icon-btn notes-btn ${isExpanded ? 'active' : ''} ${prog.notes ? 'has-notes' : ''}`;
+                btnNotes.id = `btn-notes-toggle-${q.id}`;
+                btnNotes.title = prog.notes ? "Edit Notes (Has Notes)" : "Add Notes & View Solution Hints";
+                btnNotes.innerHTML = `
+                    <svg viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                    </svg>
+                `;
+                btnNotes.addEventListener("click", () => {
+                    toggleNotesDrawer(q.id);
+                });
+                actionsDiv.appendChild(btnNotes);
+                
+                // External Link Button
+                const btnLink = document.createElement("a");
+                btnLink.href = q.link;
+                btnLink.target = "_blank";
+                btnLink.className = "action-icon-btn link-btn";
+                btnLink.title = `Solve on external site: ${q.link.includes("leetcode.com") ? 'LeetCode' : 'GeeksforGeeks'}`;
+                btnLink.innerHTML = `
+                    <svg viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                        <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                    </svg>
+                `;
+                actionsDiv.appendChild(btnLink);
+                
+                tdActions.appendChild(actionsDiv);
+                tr.appendChild(tdActions);
+                tbody.appendChild(tr);
+
+                // Notes Drawer Row (5 columns span)
+                const trDrawer = document.createElement("tr");
+                trDrawer.className = "notes-drawer-row";
+                trDrawer.id = `drawer-row-${q.id}`;
+                trDrawer.style.display = isExpanded ? "table-row" : "none";
+                
+                const tdDrawer = document.createElement("td");
+                tdDrawer.colSpan = 5;
+                
+                const contentBox = document.createElement("div");
+                contentBox.className = "drawer-content-box";
+                contentBox.id = `drawer-content-${q.id}`;
+                contentBox.style.height = isExpanded ? "auto" : "0px";
+                
+                const innerGrid = document.createElement("div");
+                innerGrid.className = "drawer-inner-grid";
+                
+                // Notes Editor
+                const editorPanel = document.createElement("div");
+                editorPanel.className = "notes-editor-panel";
+                
+                const panelHeader = document.createElement("div");
+                panelHeader.className = "panel-header-row";
+                
+                const panelTitle = document.createElement("div");
+                panelTitle.className = "panel-title";
+                panelTitle.innerHTML = `
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                        <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd" />
+                    </svg> My Review Notes`;
+                panelHeader.appendChild(panelTitle);
+                
+                const saveIndicator = document.createElement("span");
+                saveIndicator.className = "save-indicator";
+                saveIndicator.id = `save-indicator-${q.id}`;
+                saveIndicator.textContent = prog.notes ? "Draft saved locally" : "Empty note";
+                panelHeader.appendChild(saveIndicator);
+                
+                editorPanel.appendChild(panelHeader);
+                
+                const textarea = document.createElement("textarea");
+                textarea.className = "notes-textarea";
+                textarea.placeholder = "Write your key patterns, bugs encountered, or complex corner cases here... (Autosaves)";
+                textarea.value = prog.notes;
+                textarea.id = `notes-textarea-${q.id}`;
+                textarea.addEventListener("input", (e) => {
+                    debouncedSaveNotes(q.id, e.target.value);
+                });
+                textarea.addEventListener("blur", (e) => {
+                    saveNotesImmediate(q.id, e.target.value);
+                });
+                editorPanel.appendChild(textarea);
+                innerGrid.appendChild(editorPanel);
+                
+                // Hints / Solution
+                const hintPanel = document.createElement("div");
+                hintPanel.className = "drawer-hint-panel";
+                
+                const hintTitle = document.createElement("div");
+                hintTitle.className = "panel-title";
+                hintTitle.innerHTML = `
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg> Solution Summary`;
+                hintPanel.appendChild(hintTitle);
+                
+                const hintCard = document.createElement("div");
+                hintCard.className = "hint-body-card";
+                
+                const hintText = document.createElement("div");
+                hintText.className = "hint-text-summary";
+                hintText.textContent = q.solution || "No hints available.";
+                hintCard.appendChild(hintText);
+                
+                const hintBtnLink = document.createElement("a");
+                hintBtnLink.href = q.link;
+                hintBtnLink.target = "_blank";
+                hintBtnLink.className = "hint-solve-link";
+                hintBtnLink.innerHTML = `Solve Problem <svg viewBox="0 0 20 20" fill="currentColor" width="12" height="12"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" /><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" /></svg>`;
+                hintCard.appendChild(hintBtnLink);
+                
+                hintPanel.appendChild(hintCard);
+                innerGrid.appendChild(hintPanel);
+                
+                contentBox.appendChild(innerGrid);
+                tdDrawer.appendChild(contentBox);
+                trDrawer.appendChild(tdDrawer);
+                tbody.appendChild(trDrawer);
+            });
+
+            table.appendChild(tbody);
+            content.appendChild(table);
+            section.appendChild(content);
+            questionsContainer.appendChild(section);
+        });
     }
 
     // 9. UPDATE DATA ACTIONS
@@ -701,7 +794,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             userProgress[qId].nextReview = calculateNextReview(userProgress[qId].confidence);
         } else {
-            // If marking back to Todo/In Progress, we clear review timelines
+            // If marking back to Todo/To Be Reviewed, we clear review timelines
             userProgress[qId].nextReview = null;
         }
         
@@ -909,7 +1002,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (activeStatus !== "all") {
             const statusLabels = {
                 todo: "Status: Todo",
-                inprogress: "Status: In Progress",
+                inprogress: "Status: To Be Reviewed",
                 done: "Status: Done",
                 due: "Spaced Rep: Review Due"
             };
@@ -974,13 +1067,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // 13. MODALS LOGIC
     
     // Mobile Sidebar controls
-    menuToggleBtn.addEventListener("click", () => {
-        sidebar.classList.add("open");
-    });
+    if (menuToggleBtn && sidebar) {
+        menuToggleBtn.addEventListener("click", () => {
+            sidebar.classList.add("open");
+        });
+    }
     
-    mobileCloseBtn.addEventListener("click", () => {
-        sidebar.classList.remove("open");
-    });
+    if (mobileCloseBtn && sidebar) {
+        mobileCloseBtn.addEventListener("click", () => {
+            sidebar.classList.remove("open");
+        });
+    }
 
     // Backup Modal
     btnBackup.addEventListener("click", () => {
