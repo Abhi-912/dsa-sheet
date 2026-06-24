@@ -582,10 +582,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 const titleWrapper = document.createElement("div");
                 titleWrapper.className = "question-title-wrapper";
                 
+                const titleLine = document.createElement("div");
+                titleLine.className = "question-title-line";
+                
                 const qTitle = document.createElement("span");
                 qTitle.className = "question-text-title";
                 qTitle.textContent = q.question;
-                titleWrapper.appendChild(qTitle);
+                titleLine.appendChild(qTitle);
+                
+                // Inline External Link Button (next to question title)
+                const btnLinkInline = document.createElement("a");
+                btnLinkInline.href = q.link;
+                btnLinkInline.target = "_blank";
+                btnLinkInline.className = "inline-link-btn";
+                btnLinkInline.title = `Open on ${q.link.includes("leetcode.com") ? 'LeetCode' : 'GeeksforGeeks'}`;
+                btnLinkInline.innerHTML = `<svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" /><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" /></svg>`;
+                titleLine.appendChild(btnLinkInline);
+                
+                titleWrapper.appendChild(titleLine);
                 
                 const metaRow = document.createElement("div");
                 metaRow.className = "question-meta-row";
@@ -671,20 +685,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     toggleNotesDrawer(q.id);
                 });
                 actionsDiv.appendChild(btnNotes);
-                
-                // External Link Button
-                const btnLink = document.createElement("a");
-                btnLink.href = q.link;
-                btnLink.target = "_blank";
-                btnLink.className = "action-icon-btn link-btn";
-                btnLink.title = `Solve on external site: ${q.link.includes("leetcode.com") ? 'LeetCode' : 'GeeksforGeeks'}`;
-                btnLink.innerHTML = `
-                    <svg viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                        <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                    </svg>
-                `;
-                actionsDiv.appendChild(btnLink);
                 
                 tdActions.appendChild(actionsDiv);
                 tr.appendChild(tdActions);

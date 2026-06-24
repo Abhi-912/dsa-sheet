@@ -936,9 +936,34 @@ body.dark-theme .theme-toggle-btn .moon-icon {
     gap: 4px;
 }
 
+.question-title-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .question-text-title {
     font-weight: 500;
     color: var(--text-primary);
+}
+
+.inline-link-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity 0.15s ease, color 0.15s ease;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.inline-link-btn:hover {
+    color: var(--color-primary);
+}
+
+.question-row-master:hover .inline-link-btn {
+    opacity: 1;
 }
 
 .question-meta-row {
