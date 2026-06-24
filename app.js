@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Standardize structure for all 339 questions
+        const resetDone = localStorage.getItem("dsa_todo_reset_v3");
         QUESTIONS.forEach(q => {
             if (!userProgress[q.id]) {
                 userProgress[q.id] = createDefaultProgress();
@@ -108,17 +109,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (currentStatus === "In Progress") {
                     currentStatus = "To Be Reviewed";
                 }
+                // One-time status reset to Todo
+                if (!resetDone) {
+                    currentStatus = "Todo";
+                }
                 // Ensure all fields exist
                 userProgress[q.id] = {
                     status: currentStatus,
                     notes: userProgress[q.id].notes || "",
-                    lastSolved: userProgress[q.id].lastSolved || null,
-                    confidence: userProgress[q.id].confidence || 0,
-                    reviewCount: userProgress[q.id].reviewCount || 0,
-                    nextReview: userProgress[q.id].nextReview || null
+                    lastSolved: !resetDone ? null : (userProgress[q.id].lastSolved || null),
+                    confidence: !resetDone ? 0 : (userProgress[q.id].confidence || 0),
+                    reviewCount: !resetDone ? 0 : (userProgress[q.id].reviewCount || 0),
+                    nextReview: !resetDone ? null : (userProgress[q.id].nextReview || null)
                 };
             }
         });
+        if (!resetDone) {
+            localStorage.setItem("dsa_todo_reset_v3", "true");
+        }
         saveProgress();
     }
 
