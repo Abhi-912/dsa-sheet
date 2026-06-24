@@ -69,8 +69,8 @@ body.dark-theme {
     --color-primary-glow: rgba(59, 130, 246, 0.15);
     
     --color-success: #22c55e;
-    --color-success-bg: #214b52;
-    --color-success-border: #2e636b;
+    --color-success-bg: #163535;
+    --color-success-border: #1f4545;
     
     --color-warning: #f59e0b;
     --color-warning-bg: rgba(245, 158, 11, 0.1);
@@ -81,8 +81,8 @@ body.dark-theme {
     --color-danger-border: rgba(239, 68, 68, 0.2);
     
     --color-info: #60a5fa;
-    --color-info-bg: #1a305a;
-    --color-info-border: #243f75;
+    --color-info-bg: #162240;
+    --color-info-border: #1e2f55;
 
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.25);
@@ -908,11 +908,11 @@ body.dark-theme .theme-toggle-btn .moon-icon {
 }
 
 .question-row-master.todo-row {
-    background-color: #3b1c1c;
+    background-color: #2c1515;
 }
 
 .question-row-master.todo-row:hover {
-    background-color: #4a2323;
+    background-color: #371a1a;
 }
 
 .question-row-master td {
