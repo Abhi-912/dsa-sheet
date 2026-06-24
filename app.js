@@ -566,7 +566,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Row creation
                 const tr = document.createElement("tr");
-                tr.className = `question-row-master ${isExpanded ? 'expanded' : ''} ${prog.status === 'Done' ? 'completed-row' : ''} ${(prog.status === 'In Progress' || prog.status === 'To Be Reviewed') ? 'tobereviewed-row' : ''}`;
+                tr.className = `question-row-master ${isExpanded ? 'expanded' : ''} ${prog.status === 'Done' ? 'completed-row' : ''} ${(prog.status === 'In Progress' || prog.status === 'To Be Reviewed') ? 'tobereviewed-row' : ''} ${prog.status === 'Todo' ? 'todo-row' : ''}`;
                 tr.id = `q-row-${q.id}`;
 
                 // Col ID

@@ -49,14 +49,14 @@
 }
 
 body.dark-theme {
-    --bg-primary: #121212;
-    --bg-secondary: #181818;
-    --bg-card: #1a1a1a;
-    --bg-card-hover: #262626;
-    --bg-card-active: #2d2d2d;
+    --bg-primary: #202225;
+    --bg-secondary: #181a1d;
+    --bg-card: #1e2022;
+    --bg-card-hover: #26292d;
+    --bg-card-active: #2e3136;
     
-    --border-color: #2c2c2c;
-    --border-hover: #3d3d3d;
+    --border-color: #2c2e33;
+    --border-hover: #3d4047;
     --border-active: #3b82f6;
     
     --text-primary: #ffffff;
@@ -68,9 +68,9 @@ body.dark-theme {
     --color-primary-hover: #1d4ed8;
     --color-primary-glow: rgba(59, 130, 246, 0.15);
     
-    --color-success: #15803d;
-    --color-success-bg: rgba(21, 128, 61, 0.12);
-    --color-success-border: rgba(21, 128, 61, 0.25);
+    --color-success: #22c55e;
+    --color-success-bg: #214b52;
+    --color-success-border: #2e636b;
     
     --color-warning: #f59e0b;
     --color-warning-bg: rgba(245, 158, 11, 0.1);
@@ -80,13 +80,13 @@ body.dark-theme {
     --color-danger-bg: rgba(239, 68, 68, 0.1);
     --color-danger-border: rgba(239, 68, 68, 0.2);
     
-    --color-info: #3b82f6;
-    --color-info-bg: rgba(59, 130, 246, 0.12);
-    --color-info-border: rgba(59, 130, 246, 0.25);
+    --color-info: #60a5fa;
+    --color-info-bg: #1a305a;
+    --color-info-border: #243f75;
 
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.35), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
     --shadow-glow: 0 0 20px 0 rgba(59, 130, 246, 0.15);
 }
 
@@ -905,6 +905,14 @@ body.dark-theme .theme-toggle-btn .moon-icon {
 
 .question-row-master.inprogress-row:hover, .question-row-master.tobereviewed-row:hover {
     background-color: var(--color-info-border);
+}
+
+.question-row-master.todo-row {
+    background-color: #3b1c1c;
+}
+
+.question-row-master.todo-row:hover {
+    background-color: #4a2323;
 }
 
 .question-row-master td {
