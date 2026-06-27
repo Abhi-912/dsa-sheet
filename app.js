@@ -763,6 +763,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 hintText.textContent = q.solution || "No hints available.";
                 hintCard.appendChild(hintText);
                 
+                // Key Pseudocode Block
+                if (q.pseudocode) {
+                    const pseudoHeader = document.createElement("div");
+                    pseudoHeader.className = "hint-pseudocode-header";
+                    pseudoHeader.textContent = "Core Algorithm Pseudocode:";
+                    hintCard.appendChild(pseudoHeader);
+
+                    const pseudoBlock = document.createElement("pre");
+                    pseudoBlock.className = "hint-pseudocode";
+                    const pseudoCode = document.createElement("code");
+                    pseudoCode.textContent = q.pseudocode;
+                    pseudoBlock.appendChild(pseudoCode);
+                    hintCard.appendChild(pseudoBlock);
+                }
+                
                 const hintBtnLink = document.createElement("a");
                 hintBtnLink.href = q.link;
                 hintBtnLink.target = "_blank";
